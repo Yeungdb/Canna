@@ -3,7 +3,7 @@ create table Dispensary (
    Name text not null,
    Contactname text not null,
    Contactemail text not null,
-   Contactphone integer not null,
+   Contactphone bigint not null,
    Status boolean not null
 );
 
@@ -18,7 +18,7 @@ create table Inventory(
 create table UserInfo (
    UserId serial primary key not null,
    Username text,
-   Userphone integer not null,
+   Userphone bigint not null,
    DispensaryId integer not null,
    UserAddr text not null
 );

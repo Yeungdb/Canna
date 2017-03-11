@@ -11,15 +11,19 @@ class DatabaseAccess(object):
     def Hello(self):
         return "It's working...it's working"
 
-    def AddDispensary(self, DispName, contactName, Email, Phone):
-        self._cur.execute("""INSERT INTO Dispensary values (DEFAULT, {DispName}, {Contactname}, {Contactemail}, {Contactphone}, {Status}""").format(DispName=DispName, Contactname=contactName, Contactemail=Email, Contactphone=Phone, Status=1)
+    def InsertDB(self, query):
+        self._cur.execute(query)
+        self._conn.commit()
 
+    def AddDispensary(self, DispName, contactName, Email, Phone):
+        self.InsertDB("""INSERT INTO Dispensary values (DEFAULT, '{DispName}', '{Contactname}', '{Contactemail}', {Contactphone}, {Status})""".format(DispName=DispName, Contactname=contactName, Contactemail=Email, Contactphone=Phone, Status=True))
+        
     def AddInventory(self, DispName, ProductName, Amount):
-        self._cur.execute("""INSERT INTO Inventory values (DEFAULT, select DispensaryId from Dispensary where Name="{DispName}", {ProductName}, {Amount}, {isAvailable}""").format(DispName=DispName, ProductName=ProductName, Amount=Amount, isAvailable=1)
+        self.InsertDB("""INSERT INTO Inventory values (DEFAULT, select DispensaryId from Dispensary where Name="{DispName}", '{ProductName}', {Amount}, {isAvailable})""".format(DispName=DispName, ProductName=ProductName, Amount=Amount, isAvailable=1))
 
     def AddUserInfo(self, Username, Userphone, DispName, UserAddr):
-        self._cur.execute("""INSERT INTO UserInfo values (DEFAULT, {Username}, {Userphone}, select DispensaryId from Dispensary where Name="{DispName}", {UserAddr}""").format(Username=Username, Userphone=Userphone, DispName=DispName, UserAddr=UserAddr)
+        self.InsertDB("""INSERT INTO UserInfo values (DEFAULT, '{Username}', {Userphone}, select DispensaryId from Dispensary where Name="{DispName}", '{UserAddr}')""".format(Username=Username, Userphone=Userphone, DispName=DispName, UserAddr=UserAddr))
 
     def AddOrder(self, Userphone, DispName):
-        self._cur.execute("""INSERT INTO Order values (DEFAULT, select UserId from UserInfo where Userphone={Userphone}, select DispensaryId from Dispensary where Name="{DispName}")""")
+        self.InsertDB("""INSERT INTO Order values (DEFAULT, select UserId from UserInfo where Userphone={Userphone}, select DispensaryId from Dispensary where Name="{DispName}")""".format(Userphone=Userphone, DispName=DispName))
 
