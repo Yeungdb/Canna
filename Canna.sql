@@ -1,5 +1,5 @@
 create table Dispensary (
-   DispenaryID serial primary key not null,
+   DispensaryID serial primary key not null,
    Name text not null,
    Contactname text not null,
    Contactemail text not null,
@@ -20,7 +20,9 @@ create table UserInfo (
    Username text,
    Userphone bigint not null,
    DispensaryId integer not null,
-   UserAddr text not null
+   UserAddr text not null,
+   SmoochUserId text not null,
+   isActive boolean not null
 );
 
 create table DispOrder (
