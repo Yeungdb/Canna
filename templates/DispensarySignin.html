@@ -11,64 +11,29 @@
 	 <div class="container-fluid">
 	  <div class="row">
 	   <div class="col-md-6 col-sm-6 col-xs-12">
-	    <form action="http://localhost:5000/DispResult" method="POST">
+	    <form action="http://localhost:5000/AuthDispensarySignin" method="POST">
 	     <div class="form-group ">
 	      <label class="control-label requiredField" for="name">
-	       Dispensary Name
-	       <span class="asteriskField">
-	        *
-	       </span>
-	      </label>
-	      <input class="form-control" id="name" name="name" type="text"/>
+	      Username
+         </label>
+	      <input class="form-control" id="LoginName" name="LoginName" type="text"/>
 	     </div>
 	     <div class="form-group ">
 	      <label class="control-label requiredField" for="name">
-	       Contact Name
-	       <span class="asteriskField">
-	        *
-	       </span>
+         Password
 	      </label>
-	      <input class="form-control" id="contactname" name="contactname" type="text"/>
+	      <input class="form-control" id="PD" name="PD" type="password"/>
 	     </div>
-	     <div class="form-group ">
-	      <label class="control-label requiredField" for="email">
-	       Email
-	       <span class="asteriskField">
-	        *
-	       </span>
-	      </label>
-	      <input class="form-control" id="email" name="email" type="text"/>
-	     </div>
-	     <div class="form-group ">
-	      <label class="control-label requiredField" for="tel">
-	       Telephone Number
-	       <span class="asteriskField">
-	        *
-	       </span>
-	      </label>
-	      <input class="form-control" id="tel" name="tel" type="text"/>
-	     </div>
-	     <div class="form-group ">
-	      <label class="control-label requiredField" for="subject">
-	       Address
-	       <span class="asteriskField">
-	        *
-	       </span>
-	      </label>
-	      <input class="form-control" id="addr" name="addr" type="text"/>
-	     </div>
-	     <div class="form-group">
-	      <div>
-	       <button class="btn btn-primary " name="submit" type="submit">
-	        Submit
-	       </button>
-	      </div>
-	     </div>
+         <div class="form-group">
+         <div>
+          <button class="btn btn-primary " name="submit" type="submit">
+           Submit
+          </button>
+         </div>
 	    </form>
 	   </div>
 	  </div>
 	 </div>
 	</div>
-      
    </body>
 </html>

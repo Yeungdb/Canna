@@ -1,0 +1,18 @@
+<html>
+   <script>
+      Approve(phNumber){
+         var xhr = new XMLHttpRequest();
+         xhr.open("POST", "http://localhost:5000/UserApprove", true);
+         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+         xhr.send({phonenumber: phNumber});
+      }
+   </script>
+   <body>
+      <table>
+         <tr><th>Name</th><th>PhoneNumber</th><th>Approve</th>
+         {% for index in result %}
+         <tr><td>{{index[0]}}</td><td>{{index[1]}}</td><td><button onclick="Approve({{index[1]}})" class="approve">Approve</button></td></tr>
+         {% endfor %}</td>
+      </table>
+   </body>
+</html>
