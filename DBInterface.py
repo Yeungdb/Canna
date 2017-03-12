@@ -47,6 +47,9 @@ class DatabaseAccess(object):
 
     def GetSmoochUID(self, Userphone):
         query = """SELECT SmoochUserID from UserInfo where Userphone='{Userphone}'""".format(Userphone=Userphone)
+        return self.SelectDB(query)
+
+    def SelectDB(self, query):
         self._cur.execute(query)
         return self._cur.fetchone()
 
@@ -54,7 +57,7 @@ class DatabaseAccess(object):
         Smooch = self.GetSmoochUID(Userphone)
         headers = {
                     'content-type': 'application/json',
-                    'authorization': 'Bearer ed0gsj9i7odcvlujmsnq13egv',
+                    'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
                   }
 
         data = '{"userId":"{SmoochUID}".format(SmoochUID=Smooch)}'
@@ -67,10 +70,16 @@ class DatabaseAccess(object):
     def TextUser(self, Userphone):
         Smooch = self.GetSmoochUID(Userphone)
         headers = {
-                    'content-type': 'application/json',
-                    'authorization': 'Bearer ed0gsj9i7odcvlujmsnq13egv',
+                'content-type': 'application/json',
+                    'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
                   }
 
         data = '\n{\n    "role": "appMaker",\n    "type": "text",\n    "text": "Hello! From Best of Best Dispensary"\n}'
 
-        requests.post('https://api.smooch.io/v1/appusers/ed0gsj9i7odcvlujmsnq13egv/messages', headers=headers, data=data)
+        requests.post('https://api.smooch.io/v1/appusers/{SmoochUID}/messages'.format(SmoochUID=Smooch), headers=headers, data=data)
+
+    def GetUnactivatedUser(self, DispensaryName):
+        query = """SELECT username, userphone from UserInfo where DispensaryId = (select DispensaryId from Dispensary where name = '{DispensaryName}') and isActive is false""".format(DispensaryName = DispensaryName)
+        unActiveUsers = self.SelectDB(query)
+        print query
+        print unActiveUsers 
