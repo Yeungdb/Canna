@@ -7,6 +7,14 @@ create table Dispensary (
    Status boolean not null
 );
 
+create table LoginDisp (
+   LoginID serial primary key not null,
+   DispensaryID integer not null,
+   LoginName text not null,
+   PD text not null,
+   Salt text not null
+);
+
 create table Inventory(
    InventoryId serial primary key not null,
    DispensaryId integer not null,

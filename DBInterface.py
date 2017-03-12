@@ -4,6 +4,7 @@ import psycopg2
 import hashlib
 import requests
 import os
+import time
 
 JWT = os.environ['CANNAKEY'] 
 
@@ -19,19 +20,29 @@ class DatabaseAccess(object):
         self._cur.execute(query)
         self._conn.commit()
 
-    def AddDispensary(self, DispName, contactName, Email, Phone, Addr):
+    def SaltandHash(self, PD,salt):
+        for i in range(100):
+            PD = hashlib.sha256(str(PD).encode()).hexdigest()+salt
+        return PD
+
+    def AddDispensary(self, DispName, contactName, Email, Phone, Addr, LoginName, PD):
         DispName = DispName.lower()
         contactName = contactName.lower()
         Email = Email.lower()
         Addr = Addr.lower()
 
+        salt = str(int(round(time.time() * 1000)))
+        PD = self.SaltandHash(PD,salt)
+
         self.InsertDB("""INSERT INTO Dispensary values (DEFAULT, '{DispName}', '{Contactname}', '{Contactemail}', {Contactphone}, {Status}, '{Addr}')""".format(DispName=DispName, Contactname=contactName, Contactemail=Email, Contactphone=Phone, Status=True, Addr=Addr))
+
+        self.InsertDB("""INSERT INTO LoginDisp values (DEFAULT, (select DispensaryId from Dispensary where Name='{DispName}'), '{LoginName}', '{PD}', '{Salt}')""".format(DispName=DispName, LoginName=LoginName, PD=PD, Salt=salt))
 
     def AddInventory(self, DispName, ProductName, Amount):
         DispName = DispName.lower()
         ProductName = ProductName.lower()
 
-        self.InsertDB("""INSERT INTO Inventory values (DEFAULT, select DispensaryId from Dispensary where Name="{DispName}", '{ProductName}', {Amount}, {isAvailable})""".format(DispName=DispName, ProductName=ProductName, Amount=Amount, isAvailable=1))
+        self.InsertDB("""INSERT INTO Inventory values (DEFAULT, select DispensaryId from Dispensary where Name='{DispName}', '{ProductName}', {Amount}, {isAvailable})""".format(DispName=DispName, ProductName=ProductName, Amount=Amount, isAvailable=1))
 
     def AddUserInfo(self, Username, Userphone, DispName, UserAddr):
         Username = Username.lower()
@@ -67,14 +78,14 @@ class DatabaseAccess(object):
         requests.post('https://api.smooch.io/v1/appusers/%7B%7B{SmoochUID}%7D%7D/channels'.format(SmoochUID=Smooch), headers=headers, data=data)
 
 
-    def TextUser(self, Userphone):
+    def TextUser(self, Userphone, message):
         Smooch = self.GetSmoochUID(Userphone)
         headers = {
                 'content-type': 'application/json',
                     'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
                   }
 
-        data = '\n{\n    "role": "appMaker",\n    "type": "text",\n    "text": "Hello! From Best of Best Dispensary"\n}'
+        data = '\n{\n    "role": "appMaker",\n    "type": "text",\n    "text": "{MESSAGE}".format(MESSAGE=message)\n}'
 
         requests.post('https://api.smooch.io/v1/appusers/{SmoochUID}/messages'.format(SmoochUID=Smooch), headers=headers, data=data)
 
@@ -82,4 +93,13 @@ class DatabaseAccess(object):
         query = """SELECT username, userphone from UserInfo where DispensaryId = (select DispensaryId from Dispensary where name = '{DispensaryName}') and isActive is false""".format(DispensaryName = DispensaryName)
         unActiveUsers = self.SelectDB(query)
         print query
-        print unActiveUsers 
+        print unActiveUsers
+
+    def Authenticate(self, LoginName, PD):
+        query = """SELECT PD, salt FROM LoginDisp where loginname='{LoginName}'""".format(LoginName=LoginName)
+        matchPD, salt = self.SelectDB(query)
+        PD = self.SaltandHash(PD, salt)
+        if (matchPD == PD):
+            return 1
+        else:
+            return 0

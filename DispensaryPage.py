@@ -32,8 +32,8 @@ def RegisterPatient():
 @app.route("/DispResult", methods=['POST'])
 def RegisterDisp():
     DispInfo = request.form
-    print DispInfo
-    db.AddDispensary(DispInfo['name'], DispInfo['contactname'], DispInfo['email'], int(DispInfo['tel']), DispInfo['addr'])
+    print(DispInfo)
+    db.AddDispensary(DispInfo['name'], DispInfo['contactname'], DispInfo['email'], int(DispInfo['tel']), DispInfo['addr'], DispInfo['LoginName'], DispInfo['PD'])
     #Do a pop up and say thank you for signing up.
     return redirect(url_for("Index"))
 
