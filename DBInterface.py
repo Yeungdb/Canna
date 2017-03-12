@@ -12,6 +12,7 @@ class DatabaseAccess(object):
     def __init__(self, DatabaseName="Canna", user="darien", password="", host="127.0.0.1"):
         self._conn = psycopg2.connect(database=DatabaseName, user=user, password=password, host=host)
         self._cur = self._conn.cursor()
+        self.isLoggedIn = 0
 
     def Hello(self):
         return "It's working...it's working"
@@ -60,9 +61,14 @@ class DatabaseAccess(object):
         query = """SELECT SmoochUserID from UserInfo where Userphone='{Userphone}'""".format(Userphone=Userphone)
         return self.SelectDB(query)
 
+    def GetDispensaryInfoFromUserPhone(self, Userphone):
+        query = """SELECT dispensaryid, name from Dispensary where dispensaryid = (select dispensaryid from UserInfo where Userphone={Userphone})""".format(Userphone=Userphone)
+        print query
+        return self.SelectDB(query)
+
     def SelectDB(self, query):
         self._cur.execute(query)
-        return self._cur.fetchone()
+        return self._cur.fetchall()
 
     def InitUser(self, Userphone):
         Smooch = self.GetSmoochUID(Userphone)
@@ -82,24 +88,23 @@ class DatabaseAccess(object):
         Smooch = self.GetSmoochUID(Userphone)
         headers = {
                 'content-type': 'application/json',
-                    'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
+                'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
                   }
 
         data = '\n{\n    "role": "appMaker",\n    "type": "text",\n    "text": "{MESSAGE}".format(MESSAGE=message)\n}'
 
         requests.post('https://api.smooch.io/v1/appusers/{SmoochUID}/messages'.format(SmoochUID=Smooch), headers=headers, data=data)
 
-    def GetUnactivatedUser(self, DispensaryName):
-        query = """SELECT username, userphone from UserInfo where DispensaryId = (select DispensaryId from Dispensary where name = '{DispensaryName}') and isActive is false""".format(DispensaryName = DispensaryName)
+    def GetUnactivatedUser(self, LoginName):
+        query = """SELECT username, userphone from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{LoginName}') and isActive is false""".format(LoginName = LoginName)
         unActiveUsers = self.SelectDB(query)
-        print query
-        print unActiveUsers
+        return unActiveUsers
 
     def Authenticate(self, LoginName, PD):
         query = """SELECT PD, salt FROM LoginDisp where loginname='{LoginName}'""".format(LoginName=LoginName)
-        matchPD, salt = self.SelectDB(query)
+        matchPD, salt = self.SelectDB(query)[0]
         PD = self.SaltandHash(PD, salt)
         if (matchPD == PD):
-            return 1
+            self.isLoggedIn=1
         else:
-            return 0
+            self.isLoggedIn=0
