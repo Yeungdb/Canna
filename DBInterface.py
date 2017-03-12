@@ -5,6 +5,7 @@ import hashlib
 import requests
 import os
 import time
+import json
 
 JWT = os.environ['CANNAKEY'] 
 
@@ -66,6 +67,10 @@ class DatabaseAccess(object):
         print query
         return self.SelectDB(query)
 
+    def GetUserId(self, Userphone):
+        query = """SELECT SmoochUserId from UserInfo where Userphone={Userphone}""".format(Userphone=Userphone)
+        return self.SelectDB(query)
+
     def SelectDB(self, query):
         self._cur.execute(query)
         return self._cur.fetchall()
@@ -77,11 +82,18 @@ class DatabaseAccess(object):
                     'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
                   }
 
-        data = '{"userId":"{SmoochUID}".format(SmoochUID=Smooch)}'
-        requests.post('https://api.smooch.io/v1/appusers', headers=headers, data=data)
+        data = {}
+        data['userId'] = Smooch[0][0]
+        data = json.dumps(data)
+        resp = requests.post('https://api.smooch.io/v1/appusers', headers=headers, data=data)
+        print resp.status_code, resp.text
 
-        data = '{"type": "twilio", "phoneNumber": "+{PhoneNumber}".format(PhoneNumber=Userphone)}'
-        requests.post('https://api.smooch.io/v1/appusers/%7B%7B{SmoochUID}%7D%7D/channels'.format(SmoochUID=Smooch), headers=headers, data=data)
+        data={}
+        data['type'] = "twilio"
+        data['phoneNumber'] = "+"+str(Userphone)
+        data = json.dumps(data)
+        resp = requests.post('https://api.smooch.io/v1/appusers/{SmoochUID}/channels'.format(SmoochUID=Smooch[0][0]), headers=headers, data=data)
+        print resp.status_code, resp.text
 
 
     def TextUser(self, Userphone, message):
@@ -91,14 +103,28 @@ class DatabaseAccess(object):
                 'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
                   }
 
-        data = '\n{\n    "role": "appMaker",\n    "type": "text",\n    "text": "{MESSAGE}".format(MESSAGE=message)\n}'
+        data = {}
+        data['role'] = "appMaker"
+        data['type'] = "text"
+        data['text'] = message
+        data = json.dumps(data)
 
-        requests.post('https://api.smooch.io/v1/appusers/{SmoochUID}/messages'.format(SmoochUID=Smooch), headers=headers, data=data)
+        resp = requests.post('https://api.smooch.io/v1/appusers/{SmoochUID}/messages'.format(SmoochUID=Smooch[0][0]), headers=headers, data=data)
+        print resp.status_code
+
+    def GetPhoneNumberForDisp(self, username):
+        query = """SELECT userphone from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{LoginName}')""".format(LoginName = username)
+        phoneList = self.SelectDB(query)
+        return phoneList 
 
     def GetUnactivatedUser(self, LoginName):
         query = """SELECT username, userphone from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{LoginName}') and isActive is false""".format(LoginName = LoginName)
         unActiveUsers = self.SelectDB(query)
         return unActiveUsers
+
+    def UpdateUserToActive(self, phonenumber):
+        query = """Update UserInfo Set isActive = True where Userphone={Userphone}""".format(Userphone=phonenumber)
+        self.InsertDB(query)
 
     def Authenticate(self, LoginName, PD):
         query = """SELECT PD, salt FROM LoginDisp where loginname='{LoginName}'""".format(LoginName=LoginName)

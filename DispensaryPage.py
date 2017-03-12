@@ -34,7 +34,8 @@ def is_safe_url(target):
 
 @app.route("/")
 def Index():
-    return render_template('index.html')
+    #return render_template('index.html')
+    return redirect("http://canna-76ed9a.webflow.io/")
 
 @app.route("/Patient")
 def PatientForm():
@@ -71,34 +72,60 @@ def AuthLogin():
         return redirect(url_for('Login'))
     db.Authenticate(DispInfo['LoginName'], DispInfo['PD'])
     if db.isLoggedIn:
-        return redirect(url_for('Approval'))
+        return redirect(url_for('DispPage'))
     else:
         return redirect(url_for('Login'))
+
+@app.route('/GetProduct')
+def GetProduct():
+    return example 
 
 @app.route('/OnPressApprove', methods=['GET', 'POST'])
 def OnPressApprove():
     phoneNumber = int(json.dumps(request.get_data())[1:-1])
     db.InitUser(phoneNumber)
     DispId, DispName = db.GetDispensaryInfoFromUserPhone(phoneNumber)[0]
+    db.UpdateUserToActive(phoneNumber)
+    SmoochId = db.GetUserId(phoneNumber)[0][0]
     jsonReturn = {}
-    jsonReturn['phonenumber']=phoneNumber
+    jsonReturn['userid']=SmoochId
     jsonReturn['dispensaryid']=DispId
     jsonReturn['dispensaryname']=DispName
     jsonReturn = json.dumps(jsonReturn)
-    print jsonReturn
     headers = {
             'content-type': 'application/json'
             }
     data = jsonReturn
-    resp = requests.post('http://ca31907e.ngrok.io/sendUser', headers=headers, data=data)
-    print resp.text, resp.status_code
+    resp = requests.post('http://ca31907e.ngrok.io/SendUser', headers=headers, data=data)
     return (resp.text, resp.status_code, resp.headers.items())
+
+@app.route('/DispPage', methods=['GET', 'POST'])
+@authenticate
+def DispPage():
+    return render_template('DispensaryPage.html')
+
 @app.route('/ApproveUsers', methods=['GET', 'POST'])
 @authenticate
 def Approval():
     data = db.GetUnactivatedUser(session['username'])
     return render_template('Approval.html', result=data)
 
+@app.route('/PublishCampaign', methods=['GET', 'POST'])
+@authenticate
+def PublishCampaign():
+    DispInfo = request.form
+    text = DispInfo['message']+"\n"
+    for i in range(3):
+        i+=1
+        NameIndex = 'P%dName'%i
+        PriceIndex = 'Price%d'%i
+        text += DispInfo[NameIndex] + ": $" + DispInfo[PriceIndex] + "\n"
+    phoneList = db.GetPhoneNumberForDisp(session['username'])
+    for phone in phoneList:
+        phone = phone[0]
+        print phone
+        db.TextUser(phone, text)
+    return redirect(url_for('DispPage'))
 
 @app.route('/Logout')
 @authenticate
@@ -107,9 +134,11 @@ def Logout():
     db.isLoggedIn = 0
     return redirect(url_for('Index'))
 
-@app.route('/GetProduct')
-def GetProduct():
-    return example 
+@app.route('/CreateCampaignForm')
+@authenticate
+def CreateCampaignForm():
+    return render_template('CreateCampaign.html')
+
 
 
 if __name__ == "__main__":
