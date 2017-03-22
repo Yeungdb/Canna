@@ -120,6 +120,7 @@ class DatabaseAccess(object):
     def GetUnactivatedUser(self, LoginName):
         query = """SELECT username, userphone from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{LoginName}') and isActive is false""".format(LoginName = LoginName)
         unActiveUsers = self.SelectDB(query)
+        print unActiveUsers
         return unActiveUsers
 
     def UpdateUserToActive(self, phonenumber):

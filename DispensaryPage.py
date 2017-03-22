@@ -32,10 +32,22 @@ def is_safe_url(target):
     return test_url.scheme in ('http', 'https') and \
            ref_url.netloc == test_url.netloc
 
+@app.errorhandler(404)
+def handle404(err):
+    return render_template('404.html')
+
+@app.errorhandler(403)
+def handle404(err):
+    return render_template('403.html')
+
+@app.errorhandler(500)
+def handle404(err):
+    return render_template('500.html')
+
 @app.route("/")
 def Index():
-    #return render_template('index.html')
-    return redirect("http://canna-76ed9a.webflow.io/")
+    return render_template('index.html')
+    #return redirect("http://canna-76ed9a.webflow.io/")
 
 @app.route("/Patient")
 def PatientForm():
