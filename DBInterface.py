@@ -7,10 +7,15 @@ import os
 import time
 import json
 
-JWT = os.environ['CANNAKEY'] 
+JWT = os.getenv("CANNAKEY", "CannaTest")
+
+DBNAME = os.getenv("DBNAME", "Canna")
+DBUSER = os.getenv("DNUSER", "")
+DBPASS = os.getenv("DBPASS", "")
+DBHOST = os.getenv("DBHOST", "127.0.0.1")
 
 class DatabaseAccess(object):
-    def __init__(self, DatabaseName="Canna", user="darien", password="", host="127.0.0.1"):
+    def __init__(self, DatabaseName=DBNAME, user=DBUSER, password=DBPASS, host=DBHOST):
         self._conn = psycopg2.connect(database=DatabaseName, user=user, password=password, host=host)
         self._cur = self._conn.cursor()
         self.isLoggedIn = 0

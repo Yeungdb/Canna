@@ -8,7 +8,7 @@ from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify 
 from flask_login import LoginManager
 app = Flask(__name__)
-app.secret_key = os.environ['CANNAKEY']
+app.secret_key = os.getenv("CANNAKEY", "CannaTest")
 login_manager = LoginManager()
 login_manager.init_app(app)
 
