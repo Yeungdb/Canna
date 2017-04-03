@@ -41,7 +41,7 @@ class DatabaseAccess(object):
         salt = str(int(round(time.time() * 1000)))
         PD = self.SaltandHash(PD,salt)
 
-        self.InsertDB("""INSERT INTO Dispensary values (DEFAULT, '{DispName}', '{Contactname}', '{Contactemail}', {Contactphone}, {Status}, '{Addr}')""".format(DispName=DispName, Contactname=contactName, Contactemail=Email, Contactphone=Phone, Status=True, Addr=Addr))
+        self.InsertDB("""INSERT INTO Dispensary values (DEFAULT, '{DispName}', '{Addr}', '{Contactname}', '{Contactemail}', {Contactphone}, {Status})""".format(DispName=DispName, Addr=Addr, Contactname=contactName, Contactemail=Email, Contactphone=Phone, Status=True))
 
         self.InsertDB("""INSERT INTO LoginDisp values (DEFAULT, (select DispensaryId from Dispensary where Name='{DispName}'), '{LoginName}', '{PD}', '{Salt}')""".format(DispName=DispName, LoginName=LoginName, PD=PD, Salt=salt))
 

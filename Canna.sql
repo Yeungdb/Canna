@@ -1,6 +1,7 @@
 create table Dispensary (
    DispensaryID serial primary key not null,
    Name text not null,
+   Address text not null,
    Contactname text not null,
    Contactemail text not null,
    Contactphone bigint not null,
