@@ -3,19 +3,23 @@
 import os
 import json
 import requests
+import ConfigParser
 from urlparse import urlparse, urljoin
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify 
 from flask_login import LoginManager
 app = Flask(__name__)
-app.secret_key = os.getenv("CANNAKEY", "CannaTest")
+#app.secret_key = os.environ['CANNAKEY'] 
+config = ConfigParser.ConfigParser()
+config.read("/home/ubuntu/Canna/CANNAKEY.env")
+app.secret_key = config.get('DB', 'JWT')
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 import DBInterface as DBI
 db = DBI.DatabaseAccess()
 
-example = open('templates/example_products.json').read() 
+example = open('/home/ubuntu/Canna/templates/example_products.json').read() 
 
 def authenticate(f):
     @wraps(f)
