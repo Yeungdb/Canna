@@ -7,7 +7,7 @@ import ConfigParser
 from urlparse import urlparse, urljoin
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify 
-from flask.ext.login import LoginManager
+from flask_login import LoginManager
 app = Flask(__name__)
 #app.secret_key = os.environ['CANNAKEY'] 
 config = ConfigParser.ConfigParser()

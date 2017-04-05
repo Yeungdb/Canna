@@ -1,0 +1,2 @@
+- When any number needs to be an Integer we need to ensure strings can be coerced to int (right now SPACE and + characters cause errors)
+- Strings need to be able to handle all Unicode characters (I tried to use – [ndash] character and it raised UnicodeEncodeError)

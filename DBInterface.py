@@ -13,13 +13,13 @@ config = ConfigParser.ConfigParser()
 config.read("/home/ubuntu/Canna/CANNAKEY.env")
 
 JWT = config.get('DB', 'JWT')
-USER = config.get('DB', 'USER')
-PD = config.get('DB', 'DBPD')
-HOST = config.get('DB', 'HOST')
+DBUser = config.get('DB', 'USER')
+DBPass = config.get('DB', 'DBPD')
+DBHost = config.get('DB', 'HOST')
 DBName = config.get('DB', 'DatabaseName')
 
 class DatabaseAccess(object):
-    def __init__(self, DatabaseName=DBName, user=USER, password=PD, host=HOST):
+    def __init__(self, DatabaseName=DBName, user=DBUser, password=DBPass, host=DBHost):
         self._conn = psycopg2.connect(database=DatabaseName, user=user, password=password, host=host)
         self._cur = self._conn.cursor()
         self.isLoggedIn = 0
@@ -45,10 +45,7 @@ class DatabaseAccess(object):
         salt = str(int(round(time.time() * 1000)))
         PD = self.SaltandHash(PD,salt)
 
-        print """INSERT INTO Dispensary values (DEFAULT, '{DispName}', '{Contactname}', '{Contactemail}', {Contactphone}, {Status}, '{Addr}')""".format(DispName=DispName, Contactname=contactName, Contactemail=Email, Contactphone=Phone, Status=True, Addr=Addr)
-
         self.InsertDB("""INSERT INTO Dispensary values (DEFAULT, '{DispName}', '{Contactname}', '{Contactemail}', {Contactphone}, {Status}, '{Addr}')""".format(DispName=DispName, Contactname=contactName, Contactemail=Email, Contactphone=Phone, Status=True, Addr=Addr))
-
         self.InsertDB("""INSERT INTO LoginDisp values (DEFAULT, (select DispensaryId from Dispensary where Name='{DispName}'), '{LoginName}', '{PD}', '{Salt}')""".format(DispName=DispName, LoginName=LoginName, PD=PD, Salt=salt))
 
     def AddInventory(self, DispName, ProductName, Amount):
