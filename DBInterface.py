@@ -7,16 +7,13 @@ import os
 import time
 import json
 import ConfigParser
+import Helpers as h
 
-#JWT = os.environ['CANNAKEY'] 
-config = ConfigParser.ConfigParser()
-config.read("/home/ubuntu/Canna/CANNAKEY.env")
-
-JWT = config.get('DB', 'JWT')
-DBUser = config.get('DB', 'USER')
-DBPass = config.get('DB', 'DBPD')
-DBHost = config.get('DB', 'HOST')
-DBName = config.get('DB', 'DatabaseName')
+JWT = h.config.get('DB', 'JWT')
+DBUser = h.config.get('DB', 'USER')
+DBPass = h.config.get('DB', 'DBPD')
+DBHost = h.config.get('DB', 'HOST')
+DBName = h.config.get('DB', 'DatabaseName')
 
 class DatabaseAccess(object):
     def __init__(self, DatabaseName=DBName, user=DBUser, password=DBPass, host=DBHost):
