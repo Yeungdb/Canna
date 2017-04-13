@@ -9,6 +9,7 @@ from urlparse import urlparse, urljoin
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify 
 from flask_login import LoginManager
+from wit import Wit
 
 # To be replaced later with real product data
 example_product_data = open(os.path.join(h.current_path, 'templates', 'example_products.json')).read() 
@@ -102,18 +103,7 @@ def OnPressApprove():
     db.InitUser(phoneNumber)
     DispId, DispName = db.GetDispensaryInfoFromUserPhone(phoneNumber)[0]
     db.UpdateUserToActive(phoneNumber)
-    SmoochId = db.GetUserId(phoneNumber)[0][0]
-    jsonReturn = {}
-    jsonReturn['userid']=SmoochId
-    jsonReturn['dispensaryid']=DispId
-    jsonReturn['dispensaryname']=DispName
-    jsonReturn = json.dumps(jsonReturn)
-    headers = {
-            'content-type': 'application/json'
-            }
-    data = jsonReturn
-    resp = requests.post('http://ca31907e.ngrok.io/SendUser', headers=headers, data=data)
-    return (resp.text, resp.status_code, resp.headers.items())
+    return h.send_message(phoneNumber, "Your account is active")
 
 @app.route('/DispPage', methods=['GET', 'POST'])
 @authenticate
