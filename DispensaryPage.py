@@ -47,12 +47,11 @@ def handle404(err):
 
 @app.errorhandler(500)
 def handle404(err):
-    return render_template('500.html')
+    return render_template('500.html', error=err)
 
 @app.route("/")
 def Index():
     return render_template('index.html')
-    #return redirect("http://canna-76ed9a.webflow.io/")
 
 @app.route("/Patient")
 def PatientForm():

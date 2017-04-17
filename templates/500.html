@@ -1,5 +1,55 @@
+<!DOCTYPE html>
+
 <html>
-   <body>
-      <p>Welp, things gone sideways now...</p>
-   </body>
+<head>
+  <title>500 (internal server error)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <style>
+    body,
+    html {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'helvetica neue', helvetica, arial, sans-serif;
+      font-size: 14px;
+      background-color: #fafafa;
+    }
+
+    .error-header,
+    .error-data {
+      max-width: 500px;
+      margin: 25px auto;
+    }
+
+    .error-header {
+      text-align: center;
+    }
+
+    .error-header h1 {
+      font-size: 50px;
+    }
+
+    .error-data {
+      background-color: #eee;
+      color: #333;
+      padding: 10px;
+      box-sizing: border-box;
+      font-family: monaco, monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="error-header">
+    <h1>500</h1>
+    <p>The application encountered an internal error.</p>
+  </div>
+
+  <div class="error-data">
+    {{ error }}
+  </div>
+</body>
 </html>
