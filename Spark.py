@@ -7,8 +7,6 @@ import Database
 import Helpers
 import Dispensaries
 
-print(Dispensaries)
-
 # Set up app
 app = Flask(__name__)
 app.secret_key = Helpers.config.get('APP', 'JWT')
