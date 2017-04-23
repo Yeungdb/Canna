@@ -2,4 +2,5 @@
 *.pyc
 
 spark/static/site.css
+spark/static/site.js
 spark/static/.webassets-cache
