@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-import Spark
+from spark import app, authenticate, db
 from flask import render_template, request, url_for, session 
 
-Spark.app.route('/PublishCampaign', methods=['GET', 'POST'])
-Spark.authenticate
+@app.route('/PublishCampaign', methods=['GET', 'POST'])
+@authenticate
 def PublishCampaign():
   DispInfo = request.form
   text = DispInfo['message']+"\n"
@@ -16,10 +16,10 @@ def PublishCampaign():
   phoneList = db.GetPhoneNumberForDisp(session['username'])
   for phone in phoneList:
     phone = phone[0]
-    Spark.db.TextUser(phone, text)
+    db.TextUser(phone, text)
   return redirect(url_for('DispPage'))
 
-Spark.app.route('/CreateCampaignForm')
-Spark.authenticate
+@app.route('/CreateCampaignForm')
+@authenticate
 def CreateCampaignForm():
   return render_template('CreateCampaign.html')

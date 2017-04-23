@@ -7,13 +7,13 @@ import os
 import time
 import json
 import ConfigParser
-import Helpers as h
+import Helpers
 
-JWT = h.config.get('APP', 'JWT')
-DBUser = h.config.get('DB', 'USER')
-DBPass = h.config.get('DB', 'DBPD')
-DBHost = h.config.get('DB', 'HOST')
-DBName = h.config.get('DB', 'DatabaseName')
+JWT = Helpers.config.get('APP', 'JWT')
+DBUser = Helpers.config.get('DB', 'USER')
+DBPass = Helpers.config.get('DB', 'DBPD')
+DBHost = Helpers.config.get('DB', 'HOST')
+DBName = Helpers.config.get('DB', 'DatabaseName')
 
 class Access(object):
   def __init__(self, DatabaseName=DBName, user=DBUser, password=DBPass, host=DBHost):
