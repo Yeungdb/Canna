@@ -3,8 +3,7 @@
 ## Getting set up
 
 * Clone and CD in: `git clone git@github.com:Yeungdb/Canna.git && cd Canna`
-* Install deps: `pip install Flask Flask-Login psycopg2 requests urllib3 twilio wit`
-* Set environment variable: `export CANNAKEY = 'YOURKEY'`
+* Install deps: `pip install Flask Flask-Login Flask-Assets pyScss psycopg2 requests urllib3 twilio wit jsmin`
 * Create DB and set up structure: `createdb Canna && psql -h localhost -d Canna -a -q -f $PWD/resources/Canna.sql`
 * Start it up: `python Spark.py`
 

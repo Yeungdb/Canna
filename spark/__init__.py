@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 from functools import wraps
+from webassets.filter import get_filter
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify 
+from flask_assets import Environment, Bundle
 from flask_login import LoginManager
 import Database
 import Helpers
@@ -9,6 +11,11 @@ import Helpers
 # Set up app
 app = Flask(__name__)
 app.secret_key = Helpers.config.get('APP', 'JWT')
+
+assets = Environment(app)
+assets.url = app.static_url_path
+assets.register('site_scss', Bundle('_site.scss', filters='pyscss', output='site.css'))
+assets.register('site_js', Bundle('_site.js', filters='jsmin', output='site.js'))
 
 login_manager = LoginManager()
 login_manager.init_app(app)
