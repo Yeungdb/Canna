@@ -3,6 +3,7 @@
 import os
 import json
 import webbrowser
+import re
 import ConfigParser
 from urlparse import urlparse, urljoin
 from twilio.rest import Client
@@ -39,3 +40,11 @@ def start_ngrok():
 
   webbrowser.open(address)
   print(message)
+
+def sanitizize_num(num, to_int=True):
+  sanitized_num = re.sub('[^0-9]', '', num)
+
+  if to_int:
+    return int(float(sanitized_num))
+  else:
+    return sanitized_num

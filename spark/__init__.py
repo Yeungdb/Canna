@@ -22,6 +22,8 @@ login_manager.init_app(app)
 
 db = Database.Access()
 
+h = Helpers
+
 # Common
 def authenticate(f):
   @wraps(f)
@@ -57,6 +59,7 @@ def Logout():
   return redirect(url_for('Index'))
 
 # Import main components
+import Messaging
 import Campaigns
 import Patients
 import Dispensaries
