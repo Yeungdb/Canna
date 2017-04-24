@@ -1,0 +1,14 @@
+[APP]
+env = development
+JWT = CannaTest
+
+[DB]
+USER =
+DBPD =
+HOST = 127.0.0.1
+DatabaseName = Canna
+
+[TWILIO]
+number = [TWILIO NUMBER]
+sid = [TWILIO SID]
+auth = [TWILIO AUTH]
