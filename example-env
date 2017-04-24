@@ -1,12 +1,12 @@
 [APP]
 env = development
-JWT = CannaTest
+JWT = SparkTest
 
 [DB]
 USER =
 DBPD =
 HOST = 127.0.0.1
-DatabaseName = Canna
+DatabaseName = Spark
 
 [TWILIO]
 number = [TWILIO NUMBER]

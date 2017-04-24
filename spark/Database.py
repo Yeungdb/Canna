@@ -83,7 +83,7 @@ class Access(object):
     Smooch = self.GetSmoochUID(Userphone)
     headers = {
       'content-type': 'application/json',
-      'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
+      'authorization': 'Bearer {SparkKey}'.format(SparkKey=JWT),
     }
 
     data = {}
@@ -102,7 +102,7 @@ class Access(object):
     Smooch = self.GetSmoochUID(Userphone)
     headers = {
       'content-type': 'application/json',
-      'authorization': 'Bearer {CannaKey}'.format(CannaKey=JWT),
+      'authorization': 'Bearer {SparkKey}'.format(SparkKey=JWT),
     }
 
     data = {}
