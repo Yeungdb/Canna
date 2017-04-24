@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import json
 import ConfigParser
 from urlparse import urlparse, urljoin
 from twilio.rest import Client
@@ -25,3 +26,14 @@ def is_safe_url(target):
   ref_url = urlparse(request.host_url)
   test_url = urlparse(urljoin(request.host_url, target))
   return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+
+def ngrok_address():
+  os.system("curl http://localhost:4040/api/tunnels > tunnels.json")
+
+  with open('tunnels.json') as data_file:    
+    address = json.load(data_file)['tunnels'][1]['public_url']
+
+  message = "DEVELOPMENT MODE \n" + \
+            "ngrok address: " + address
+
+  print(message)
