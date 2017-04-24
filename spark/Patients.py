@@ -17,12 +17,11 @@ def RegisterPatient():
 @app.route('/OnPressApprove', methods=['GET', 'POST'])
 def OnPressApprove():
   phoneNumber = int(json.dumps(request.get_data())[1:-1])
-  db.InitUser(phoneNumber)
-  db.UpdateUserToActive(phoneNumber)
+  db.ActivateUser(phoneNumber)
   return h.send_message(phoneNumber, "Your account is active")
 
 @app.route('/ApproveUsers', methods=['GET', 'POST'])
 @authenticate
 def Approval():
-  data = db.GetUnactivatedUser(session['username'])
+  data = db.GetInactivatedUser(session['username'])
   return render_template('Approval.html', result=data)

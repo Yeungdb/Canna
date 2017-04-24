@@ -5,7 +5,7 @@ from flask import render_template, request, url_for, session
 
 @app.route('/PublishCampaign', methods=['GET', 'POST'])
 @authenticate
-def PublishCampaign():
+def SendCampaign():
   DispInfo = request.form
   text = DispInfo['message']+"\n"
   for i in range(3):
@@ -13,10 +13,10 @@ def PublishCampaign():
     NameIndex = 'P%dName'%i
     PriceIndex = 'Price%d'%i
     text += DispInfo[NameIndex] + ": $" + DispInfo[PriceIndex] + "\n"
-  phoneList = db.GetPhoneNumberForDisp(session['username'])
+  phoneList = db.GetDispensaryNumbers(session['username'])
   for phone in phoneList:
     phone = phone[0]
-    db.TextUser(phone, text)
+    # Send text to user
   return redirect(url_for('DispPage'))
 
 @app.route('/CreateCampaignForm')
