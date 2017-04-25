@@ -13,9 +13,11 @@ app = Flask(__name__)
 app.secret_key = Helpers.config.get('APP', 'JWT')
 
 assets = Environment(app)
-assets.url = app.static_url_path
-assets.register('site_scss', Bundle('_site.scss', filters='pyscss', output='site.css'))
-assets.register('site_js', Bundle('_site.js', filters='jsmin', output='site.js'))
+assets.url = app.static_url_path;
+assets.directory = app.static_folder;
+assets.append_path('spark/assets')
+assets.register('site_scss', Bundle('application.scss', filters='pyscss', output='application.css'))
+assets.register('site_js', Bundle('application.js', filters='jsmin', output='application.js'))
 
 login_manager = LoginManager()
 login_manager.init_app(app)
