@@ -8,14 +8,14 @@
   <form action="{{ url_for('DispensaryAuth') }}" method="post">
     <div>
       <label for="username">Username</label>
-      <input id="username" name="username" type="text"/>
+      <input id="username" name="username" type="text" class="standard-text-field" />
     </div>
 
     <div>
       <label for="password">Password</label>
-      <input id="password" name="password" type="password"/>
+      <input id="password" name="password" type="password" class="standard-text-field" />
     </div>
 
-    <button name="submit" type="submit">Login</button>
+    <button name="submit" type="submit" class="standard-button blue">Login</button>
   </form>
 {% endblock %}

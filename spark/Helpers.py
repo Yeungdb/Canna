@@ -20,7 +20,7 @@ env = config.get('APP', 'env')
 
 def send_message(number, message):
   return twilio_client.messages.create(
-    to=number, 
+    to=number,
     from_=twilio_number,
     body=message)
 
@@ -32,7 +32,7 @@ def is_safe_url(target):
 def start_ngrok():
   os.system("curl http://localhost:4040/api/tunnels > tunnels.json")
 
-  with open('tunnels.json') as data_file:    
+  with open('tunnels.json') as data_file:
     address = json.load(data_file)['tunnels'][1]['public_url']
 
   message = "DEVELOPMENT MODE \n" + \

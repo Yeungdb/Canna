@@ -171,78 +171,32 @@ html {
 
                                                                                           body {
                                                                                             display: flex;
-                                                                                            font-family: Helvetica;
+                                                                                            font-family: "Rubik", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
                                                                                             font-size: 15px;
                                                                                             -moz-font-smoothing: antialiased;
-                                                                                            -webkit-font-smoothing: antialiased;
-                                                                                            -webkit-box-orient: vertical;
-                                                                                            -webkit-box-direction: normal;
-                                                                                            flex-direction: column; }
+                                                                                            -webkit-font-smoothing: antialiased; }
 
-                                                                                            @media (min-width: 768px) {
-                                                                                              #page-content {
-                                                                                                display: flex;
-                                                                                                -webkit-box-flex: 1;
-                                                                                                flex: 1 0 auto;   }
+                                                                                            #container {
+                                                                                              padding: 20px; }
+
+                                                                                              .wrap-large {
+                                                                                                max-width: 1000px;
+                                                                                                margin-left: auto;
+                                                                                                margin-right: auto; }
+
+                                                                                                .wrap-medium {
+                                                                                                  max-width: 700px;
+                                                                                                  margin-left: auto;
+                                                                                                  margin-right: auto; }
+
+                                                                                                  .vertical-pad {
+                                                                                                    padding-left: 15px;
+                                                                                                    padding-right: 15px; }
+                                                                                                    @media (min-width: 768px) {
+                                                                                                      .vertical-pad {
+                                                                                                        padding-left: 20px;
+                                                                                                        padding-right: 20px;   }
 }
-
-.wrap-large {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto; }
-
-  .wrap-medium {
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto; }
-
-    .vertical-pad {
-      padding-left: 15px;
-      padding-right: 15px; }
-      @media (min-width: 768px) {
-        .vertical-pad {
-          padding-left: 20px;
-          padding-right: 20px;   }
-}
-
-.primary-content-header {
-  padding: 35px 0;
-  text-align: center; }
-  @media (min-width: 480px) {
-    .primary-content-header {
-      padding: 45px 0;   }
-}
-    @media (min-width: 768px) {
-      .primary-content-header {
-        padding: 50px 0;   }
-}
-
-.primary-content-header-title {
-  margin: 0;
-  font-size: 28px;
-  font-weight: 400;
-  color: #444; }
-  @media (min-width: 480px) {
-    .primary-content-header-title {
-      font-size: 32px;   }
-}
-    .primary-content-header-title a {
-      color: #33abda;
-      text-decoration: none; }
-      .primary-content-header-title a:hover {
-        text-decoration: underline; }
-
-.primary-content-header-subtitle {
-  margin: 0;
-  margin-top: 15px;
-  font-weight: 400;
-  color: #5d5d5d;
-  line-height: 1.4; }
-  .primary-content-header-subtitle a {
-    color: #33abda;
-    text-decoration: none; }
-    .primary-content-header-subtitle a:hover {
-      text-decoration: underline; }
 
 .standard-button {
   position: relative;
@@ -260,14 +214,12 @@ html {
   cursor: pointer; }
   .standard-button:focus {
     outline: none; }
-    .standard-button.button-loading {
-      color: transparent !important; }
-      .standard-button[class*="stroke"] {
-        box-sizing: border-box; }
-        .standard-button.black {
-          background-color: #5d5d5d; }
-          .standard-button.black:hover, .standard-button.black:focus {
-            background-color: #494949; }
+    .standard-button[class*="stroke"] {
+      box-sizing: border-box; }
+      .standard-button.black {
+        background-color: #5d5d5d; }
+        .standard-button.black:hover, .standard-button.black:focus {
+          background-color: #494949; }
   .standard-button.black-stroke {
     background-color: #fff;
     border: 1px solid #5d5d5d;
@@ -305,67 +257,45 @@ html {
     .standard-button.orange-stroke:hover, .standard-button.orange-stroke:focus {
       background-color: rgba(223, 117, 50, 0.1); }
 
-.standard-button .progress-loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.7);
-  opacity: 0;
-  transition: all 0.1s ease-in; }
-
-  .standard-button.button-loading .progress-loader {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1); }
-
-    .standard-button.black-stroke .progress-loader-ball {
-      background-color: #5d5d5d; }
-
-      .standard-button.blue-stroke .progress-loader-ball {
-        background-color: #33abda; }
-
-        .standard-button.green-stroke .progress-loader-ball {
-          background-color: #81be62; }
-
-          .standard-text-field, .standard-text-area {
-            border: none;
-            background: #f2f2f2;
-            width: 100%;
-            border-radius: 3px;
-            font-family: inherit;
-            transition: background-color 0.1s ease-in;
-            color: #5d5d5d;
-            box-sizing: border-box; }
-            .standard-text-field:focus, .standard-text-area:focus {
-              outline: none;
-              background-color: #eee; }
-              .standard-text-field.placeholder, .standard-text-area.placeholder {
-                color: rgba(93, 93, 93, 0.3);
-                transition: color 0.1s ease-in; }
-                .standard-text-field.placeholder:focus, .standard-text-area.placeholder:focus {
-                  color: rgba(93, 93, 93, 0.7); }
-            .standard-text-field:-moz-placeholder, .standard-text-area:-moz-placeholder {
-              color: rgba(93, 93, 93, 0.3);
-              transition: color 0.1s ease-in; }
-              .standard-text-field:-moz-placeholder:focus,
-              .standard-text-area:-moz-placeholder:focus {
-                color: rgba(93, 93, 93, 0.7); }
-            .standard-text-field::-moz-placeholder, .standard-text-area::-moz-placeholder {
-              color: rgba(93, 93, 93, 0.3);
-              transition: color 0.1s ease-in; }
-              .standard-text-field::-moz-placeholder:focus,
-              .standard-text-area::-moz-placeholder:focus {
-                color: rgba(93, 93, 93, 0.7); }
-            .standard-text-field::-webkit-input-placeholder,
-            .standard-text-area::-webkit-input-placeholder {
-              color: rgba(93, 93, 93, 0.3);
-              transition: color 0.1s ease-in; }
-              .standard-text-field::-webkit-input-placeholder:focus,
-              .standard-text-area::-webkit-input-placeholder:focus {
-                color: rgba(93, 93, 93, 0.7); }
-            .standard-text-field.code, .standard-text-area.code {
-              font-family: "Source Sans Code", Monaco, monospace;
-              letter-spacing: -0.02em;
-              font-size: 13px; }
+.standard-text-field, .standard-text-area {
+  border: none;
+  background: #f2f2f2;
+  border-radius: 3px;
+  font-family: inherit;
+  transition: background-color 0.1s ease-in;
+  color: #5d5d5d;
+  box-sizing: border-box; }
+  .standard-text-field:focus, .standard-text-area:focus {
+    outline: none;
+    background-color: #eee; }
+    .standard-text-field.placeholder, .standard-text-area.placeholder {
+      color: rgba(93, 93, 93, 0.3);
+      transition: color 0.1s ease-in; }
+      .standard-text-field.placeholder:focus, .standard-text-area.placeholder:focus {
+        color: rgba(93, 93, 93, 0.7); }
+  .standard-text-field:-moz-placeholder, .standard-text-area:-moz-placeholder {
+    color: rgba(93, 93, 93, 0.3);
+    transition: color 0.1s ease-in; }
+    .standard-text-field:-moz-placeholder:focus,
+    .standard-text-area:-moz-placeholder:focus {
+      color: rgba(93, 93, 93, 0.7); }
+  .standard-text-field::-moz-placeholder, .standard-text-area::-moz-placeholder {
+    color: rgba(93, 93, 93, 0.3);
+    transition: color 0.1s ease-in; }
+    .standard-text-field::-moz-placeholder:focus,
+    .standard-text-area::-moz-placeholder:focus {
+      color: rgba(93, 93, 93, 0.7); }
+  .standard-text-field::-webkit-input-placeholder,
+  .standard-text-area::-webkit-input-placeholder {
+    color: rgba(93, 93, 93, 0.3);
+    transition: color 0.1s ease-in; }
+    .standard-text-field::-webkit-input-placeholder:focus,
+    .standard-text-area::-webkit-input-placeholder:focus {
+      color: rgba(93, 93, 93, 0.7); }
+  .standard-text-field.code, .standard-text-area.code {
+    font-family: "Source Sans Code", Monaco, monospace;
+    letter-spacing: -0.02em;
+    font-size: 13px; }
 
 .standard-text-field {
   font-size: 14px;

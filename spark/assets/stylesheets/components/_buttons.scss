@@ -17,10 +17,6 @@
     outline: none;
   }
 
-  &.button-loading {
-    color: transparent !important;
-  }
-
   &[class*="stroke"] {
     box-sizing: border-box;
   }
@@ -104,30 +100,4 @@
       background-color: rgba($pumpkin-orange, 0.1);
     }
   }
-}
-
-.standard-button .progress-loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.7);
-  opacity: 0;
-  transition: all 0.1s ease-in;
-}
-
-.standard-button.button-loading .progress-loader {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.standard-button.black-stroke .progress-loader-ball {
-  background-color: $slate-black;
-}
-
-.standard-button.blue-stroke .progress-loader-ball {
-  background-color: $aqua-blue;
-}
-
-.standard-button.green-stroke .progress-loader-ball {
-  background-color: $fern-green;
 }
