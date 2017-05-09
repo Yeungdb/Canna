@@ -1,0 +1,15 @@
+{% extends "general-layout.html" %}
+
+{% block title %}Welcome to Spark{% endblock %}
+
+{% block content %}
+  <h1>Spark</h1>
+
+  <div>
+    <a href="{{ url_for('DispensaryLogin') }}">Dispensary Login</a>
+  </div>
+
+  <div>
+    <a href="{{ url_for('NewDispensary') }}">New Dispensary</a>
+  </div>
+{% endblock %}

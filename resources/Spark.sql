@@ -36,7 +36,6 @@ create table UserInfo (
    Userphone bigint not null,
    DispensaryId integer not null,
    UserAddr text not null,
-   SmoochUserId text not null,
    isActive boolean not null
 );
 

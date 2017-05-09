@@ -1,0 +1,15 @@
+{% extends "dispensary-layout.html" %}
+
+{% block title %}Dispensary Home | Spark{% endblock %}
+
+{% block content %}
+  <h1>Dispensary Home: {{ dispensary['name'] }}</h1>
+
+  <div>
+    <a href="{{ url_for('NewPatient') }}">New Patient</a>
+  </div>
+
+  <div>
+    <a href="{{ url_for('ListPatients') }}">List Patients</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "general-layout.html" %}
+
+{% block title %}Join | Spark{% endblock %}
+
+{% block content %}
+  <h1>Join as a Patient</h1>
+
+  <form action="{{ url_for('CreatePatient') }}" method="post">
+    <input type="hidden" name="dispensary_name" value="{{ dispensary['name'] }}" />
+
+    <div>
+      <label for="contact_name">Patient Name</label>
+      <input id="contact_name" name="contact_name" type="text"/>
+    </div>
+
+    <div>
+      <label for="phone">Telephone</label>
+      <input id="phone" name="phone" type="tel"/>
+    </div>
+
+    <div>
+      <label for="address">Address</label>
+      <input id="address" name="address" type="text"/>
+    </div>
+
+    <button name="submit" type="submit">Join</button>
+  </form>
+{% endblock %}

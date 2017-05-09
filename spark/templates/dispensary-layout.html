@@ -6,17 +6,24 @@
       <title>{% block title %}Spark{% endblock %}</title>
       <meta name="viewport" content="width=device-width,initial-scale=1">
 
-      {% assets "site_scss" %}
+      {% assets "dispensary_scss" %}
         <link type="text/css" rel="stylesheet" href="{{ ASSET_URL }}">
       {% endassets %}
 
-      {% assets "site_js" %}
+      {% assets "dispensary_js" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
       {% endassets %}
     {% endblock %}
   </head>
 
   <body>
-    {% block content %}{% endblock %}
+    <div id="container">
+      {% block content %}{% endblock %}
+
+      <div>
+        <hr />
+        <a href="{{ url_for('DispensaryLogout') }}">Logout</a>
+      </div>
+    </div>
   </body>
 </html>

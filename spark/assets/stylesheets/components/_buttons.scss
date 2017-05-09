@@ -1,0 +1,133 @@
+.standard-button {
+  position: relative;
+  padding: 0 19px;
+  height: 45px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-family: inherit;
+  letter-spacing: 1px;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  transition: all 0.07s ease-in;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.button-loading {
+    color: transparent !important;
+  }
+
+  &[class*="stroke"] {
+    box-sizing: border-box;
+  }
+
+  &.black {
+    background-color: $slate-black;
+
+    &:hover,
+    &:focus {
+      background-color: darken($slate-black, 8%);
+    }
+  }
+
+  &.black-stroke {
+    background-color: #fff;
+    border: 1px solid $slate-black;
+    color: $slate-black;
+
+    &:hover,
+    &:focus {
+      background-color: rgba($slate-black, 0.05);
+    }
+  }
+
+  &.green {
+    background-color: $fern-green;
+
+    &:hover,
+    &:focus {
+      background-color: darken($fern-green, 8%);
+    }
+  }
+
+  &.green-stroke {
+    background-color: #fff;
+    border: 1px solid $fern-green;
+    color: $fern-green;
+
+    &:hover,
+    &:focus {
+      background-color: rgba($fern-green, 0.1);
+    }
+  }
+
+  &.blue {
+    background-color: $aqua-blue;
+
+    &:hover,
+    &:focus {
+      background-color: darken($aqua-blue, 8%);
+    }
+  }
+
+  &.blue-stroke {
+    background-color: #fff;
+    border: 1px solid $aqua-blue;
+    color: $aqua-blue;
+
+    &:hover,
+    &:focus {
+      background-color: rgba($aqua-blue, 0.1);
+    }
+  }
+
+  &.orange {
+    background-color: $pumpkin-orange;
+
+    &:hover,
+    &:focus {
+      background-color: darken($pumpkin-orange, 8%);
+    }
+  }
+
+  &.orange-stroke {
+    background-color: #fff;
+    border: 1px solid $pumpkin-orange;
+    color: $pumpkin-orange;
+
+    &:hover,
+    &:focus {
+      background-color: rgba($pumpkin-orange, 0.1);
+    }
+  }
+}
+
+.standard-button .progress-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+  transition: all 0.1s ease-in;
+}
+
+.standard-button.button-loading .progress-loader {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.standard-button.black-stroke .progress-loader-ball {
+  background-color: $slate-black;
+}
+
+.standard-button.blue-stroke .progress-loader-ball {
+  background-color: $aqua-blue;
+}
+
+.standard-button.green-stroke .progress-loader-ball {
+  background-color: $fern-green;
+}

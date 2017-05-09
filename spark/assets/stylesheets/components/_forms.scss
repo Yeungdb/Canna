@@ -1,0 +1,46 @@
+.standard-text-field,
+.standard-text-area {
+  border: none;
+  background: #f2f2f2;
+  width: 100%;
+  border-radius: 3px;
+  font-family: inherit;
+  transition: background-color 0.1s ease-in;
+  color: $slate-black;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    background-color: #eee;
+  }
+
+  @include placeholder {
+    color: rgba($slate-black, 0.3);
+    transition: color 0.1s ease-in;
+
+    &:focus {
+      color: rgba($slate-black, 0.7);
+    }
+  }
+
+  &.code {
+    font-family: "Source Sans Code", Monaco, monospace;
+    letter-spacing: -0.02em;
+    font-size: 13px;
+  }
+}
+
+.standard-text-field {
+  font-size: 14px;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 45px;
+}
+
+.standard-text-area {
+  padding: 13px;
+  box-sizing: border-box;
+  font-size: 14px;
+  resize: vertical;
+  line-height: 21px;
+}

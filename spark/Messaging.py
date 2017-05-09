@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from spark import app, h
+from spark import app, db, h
 from flask import Response, abort, request
 import json
 
@@ -10,4 +10,10 @@ def MessageReceived():
   from_message = request.values.get("Body")
 
   print ("New message from " + from_number + ": " + from_message)
-  return Response(response={}, status=200, mimetype="application/json")
+
+  user = db.GetUserByNumber(from_number)
+
+  print(user)
+
+  # Return XML response
+  return Response(response={}, status=200, mimetype="text/xml")

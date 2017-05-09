@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    {% block head %}
+      <title>{% block title %}Spark{% endblock %}</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      {% assets "general_scss" %}
+        <link type="text/css" rel="stylesheet" href="{{ ASSET_URL }}">
+      {% endassets %}
+
+      {% assets "general_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+      {% endassets %}
+    {% endblock %}
+  </head>
+
+  <body>
+    <div id="container">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

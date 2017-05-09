@@ -1,9 +1,14 @@
 #!/usr/bin/python
 
 from spark import app, authenticate, db
-from flask import render_template, request, url_for, session 
+from flask import render_template, request, url_for, session
 
-@app.route('/PublishCampaign', methods=['GET', 'POST'])
+@app.route('/dispensary/campaigns/new')
+@authenticate
+def NewCampaign():
+  return render_template('campaign/new.html')
+
+@app.route('/dispensary/campaigns/send', methods=['GET', 'POST'])
 @authenticate
 def SendCampaign():
   DispInfo = request.form
@@ -17,9 +22,4 @@ def SendCampaign():
   for phone in phoneList:
     phone = phone[0]
     # Send text to user
-  return redirect(url_for('DispPage'))
-
-@app.route('/CreateCampaignForm')
-@authenticate
-def CreateCampaignForm():
-  return render_template('CreateCampaign.html')
+  return redirect(url_for('DispensaryHome'))

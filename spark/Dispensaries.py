@@ -1,36 +1,45 @@
 #!/usr/bin/python
 
-from spark import app, authenticate, db
+from spark import app, authenticate, dispensary_data, db
 from flask import render_template, request, redirect, url_for, session
 
-@app.route("/Dispensary")
-def DispensaryForm():
-  return render_template('RegisterDispensaryForm.html')
-
-@app.route('/DispensarySignin', methods=['GET', 'POST'])
-def Login():
-  return render_template('DispensarySignin.html')
-
-@app.route('/AuthDispensarySignin', methods=['GET', 'POST'])
-def AuthLogin():
-  DispInfo = request.form
-  session['username'] = DispInfo['LoginName']
-  if DispInfo['LoginName'] == "" or DispInfo['PD'] == "":
-    return redirect(url_for('Login'))
-  db.Authenticate(DispInfo['LoginName'], DispInfo['PD'])
-  if db.isLoggedIn:
-    return redirect(url_for('DispPage'))
-  else:
-    return redirect(url_for('Login'))
-
-@app.route("/DispResult", methods=['POST'])
-def RegisterDisp():
-  DispInfo = request.form
-  db.AddDispensary(DispInfo['name'], DispInfo['contactname'], DispInfo['email'],
-    int(DispInfo['tel']), DispInfo['addr'], DispInfo['LoginName'], DispInfo['PD'])
-  return redirect(url_for("Index"))
-
-@app.route('/DispPage', methods=['GET', 'POST'])
+@app.route('/dispensary', methods=['GET'])
 @authenticate
-def DispPage():
-  return render_template('DispensaryPage.html')
+def DispensaryHome():
+  dispensaryData = dispensary_data()
+  return render_template('/dispensary/home.html', dispensary=dispensaryData)
+
+@app.route('/dispensary/login', methods=['GET'])
+def DispensaryLogin():
+  return render_template('/dispensary/login.html')
+
+@app.route('/dispensary/logout')
+@authenticate
+def DispensaryLogout():
+  session.pop('username', None)
+  db.isLoggedIn = 0
+  return redirect(url_for('Index'))
+
+@app.route('/dispensary/auth', methods=['POST'])
+def DispensaryAuth():
+  requestData = request.form
+  session['username'] = requestData['username']
+  if requestData['username'] == "" or requestData['password'] == "":
+    return redirect(url_for('Login'))
+  db.Authenticate(requestData['username'], requestData['password'])
+  if db.isLoggedIn:
+    return redirect(url_for('DispensaryHome'))
+  else:
+    return redirect(url_for('DispensaryLogin'))
+
+@app.route("/dispensary/new", methods=['GET'])
+def NewDispensary():
+  return render_template('/dispensary/new.html')
+
+@app.route("/dispensary/create", methods=['POST'])
+def CreateDispensary():
+  requestData = request.form
+  # TODO Check for username conflicts
+  db.AddDispensary(requestData['dispensary_name'], requestData['contact_name'], requestData['email'],
+    requestData['phone'], requestData['address'], requestData['username'], requestData['password'])
+  return redirect(url_for('Index'))
