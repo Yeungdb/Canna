@@ -71,16 +71,20 @@ class Access(object):
       'contact_phone': result[0][4]
     }
 
-  # def GetDispensaryNumbers(self, username):
-  #   query = """SELECT userphone from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{LoginName}')""".format(LoginName = username)
-  #   phoneList = self.DBSelect(query)
-  #   return phoneList
-
   # Users
 
-  def CreateUser(self, dispensaryName, contactName, phone, address):
+  def CreatePatient(self, dispensaryName, contactName, phone, address):
     phone = int(phone)
     self.DBInsert("""INSERT INTO UserInfo values (DEFAULT, '{contactName}', {phone}, (select DispensaryId from Dispensary where Name='{dispensaryName}'), '{address}', {isActive})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, isActive=False))
+
+  def ActivatePatient(self, phone):
+    query = """Update UserInfo Set isActive = True where Userphone={phone}""".format(phone=phone)
+    self.DBInsert(query)
+
+  def GetPatientByNumber(self, phone):
+    phone = int(phone)
+    query = """SELECT username from UserInfo where Userphone={phone}""".format(phone=phone)
+    return self.DBSelect(query)
 
   def GetPatientsByDispensary(self, username, activeOnly=False):
     query = """SELECT username,userphone,isactive from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{username}') order by isactive""".format(username=username)
@@ -89,16 +93,12 @@ class Access(object):
       patients = filter(lambda patient: patient[2] == True, patients)
     return patients
 
-  def ActivateUser(self, phone):
-    query = """Update UserInfo Set isActive = True where Userphone={phone}""".format(phone=phone)
-    self.DBInsert(query)
-
-  def GetUserByNumber(self, phone):
-    phone = int(phone)
-    query = """SELECT username from UserInfo where Userphone={phone}""".format(phone=phone)
-    return self.DBSelect(query)
-
   # Currently unused
+
+  # def GetDispensaryNumbers(self, username):
+  #   query = """SELECT userphone from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{LoginName}')""".format(LoginName = username)
+  #   phoneList = self.DBSelect(query)
+  #   return phoneList
 
   # def AddInventory(self, DispName, ProductName, Amount):
   #   DispName = DispName.lower()

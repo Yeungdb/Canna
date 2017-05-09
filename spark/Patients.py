@@ -17,7 +17,7 @@ def NewPatient():
 @authenticate
 def CreatePatient():
   requestData = request.form
-  db.CreateUser(requestData['dispensary_name'], requestData['contact_name'],
+  db.CreatePatient(requestData['dispensary_name'], requestData['contact_name'],
     requestData['phone'], requestData['address'])
   # TODO Alert to successful creation
   return redirect(url_for('NewPatient'))
@@ -33,6 +33,6 @@ def ListPatients():
 def ApprovePatient():
   requestData = request.form
   phone = int(requestData['phone'])
-  db.ActivateUser(phone)
+  db.ActivatePatient(phone)
   h.send_message(phone, "Your account is active - welcome to Spark!")
   return redirect(url_for('ListPatients'))

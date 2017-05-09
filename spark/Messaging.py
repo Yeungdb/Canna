@@ -11,7 +11,7 @@ def MessageReceived():
 
   print ("New message from " + from_number + ": " + from_message)
 
-  user = db.GetUserByNumber(from_number)
+  user = db.GetPatientByNumber(from_number)
 
   print(user)
 
