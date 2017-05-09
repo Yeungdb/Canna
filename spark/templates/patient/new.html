@@ -3,7 +3,7 @@
 {% block title %}Join | Spark{% endblock %}
 
 {% block content %}
-  <h1>Join as a Patient</h1>
+  <h1>Join <i>{{ dispensary['name'] }}</i> as a Patient</h1>
 
   <form action="{{ url_for('CreatePatient') }}" method="post">
     <input type="hidden" name="dispensary_name" value="{{ dispensary['name'] }}" />

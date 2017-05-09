@@ -43,3 +43,25 @@
   resize: vertical;
   line-height: 21px;
 }
+
+/* Temp styling */
+
+form {
+
+  > div {
+    margin-bottom: 10px;
+  }
+
+  > div label {
+    width: 140px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  > div input,
+  > div textarea {
+    width: 360px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
