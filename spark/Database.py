@@ -82,9 +82,12 @@ class Access(object):
     phone = int(phone)
     self.DBInsert("""INSERT INTO UserInfo values (DEFAULT, '{contactName}', {phone}, (select DispensaryId from Dispensary where Name='{dispensaryName}'), '{address}', {isActive})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, isActive=False))
 
-  def GetPatientsByDispensary(self, username):
-    query = """SELECT username,userphone,isactive from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{username}')""".format(username=username)
-    return self.DBSelect(query)
+  def GetPatientsByDispensary(self, username, activeOnly=False):
+    query = """SELECT username,userphone,isactive from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{username}') order by isactive""".format(username=username)
+    patients = self.DBSelect(query)
+    if activeOnly:
+      patients = filter(lambda patient: patient[2] == True, patients)
+    return patients
 
   def ActivateUser(self, phone):
     query = """Update UserInfo Set isActive = True where Userphone={phone}""".format(phone=phone)
