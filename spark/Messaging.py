@@ -8,12 +8,9 @@ import json
 def MessageReceived():
   from_number = h.sanitizize_num(request.values.get("From"), False)
   from_message = request.values.get("Body")
+  user = db.GetPatientByPhone(h.trim_phone(from_number))
 
-  print ("New message from " + from_number + ": " + from_message)
-
-  user = db.GetPatientByNumber(from_number)
-
-  print(user)
+  # User will be False or a Dictionary
 
   # Return XML response
   return Response(response={}, status=200, mimetype="text/xml")
