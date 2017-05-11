@@ -59,7 +59,7 @@ class Access(object):
     self.DBInsert("""INSERT INTO DispensaryUser VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{username}', '{password}', '{salt}')""".format(dispensaryName=dispensaryName, username=username, password=password, salt=salt))
 
   def GetDispensaryFromUsername(self, username):
-    result = self.DBSelect("""SELECT Name, Address, ContactName, ContactEmail, ContactPhone, Active, CreatedAt FROM Dispensary WHERE ID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}')""".format(username=username))[0]
+    result = self.DBSelect("""SELECT * FROM Dispensary WHERE ID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}')""".format(username=username))[0]
     return {
       'username': username,
       'name': result[0],
@@ -80,34 +80,24 @@ class Access(object):
   def ActivatePatient(self, phone):
     self.DBInsert("""UPDATE Patient SET Active = True WHERE Phone={phone}""".format(phone=phone))
 
-  def GetPatientByNumber(self, phone):
+  def GetPatientByPhone(self, phone):
     phone = int(phone)
-    return self.DBSelect("""SELECT Name FROM Patient WHERE Phone={phone}""".format(phone=phone))
+    result = self.DBSelect("""SELECT * FROM Patient WHERE Phone={phone}""".format(phone=phone))
+    if not len(result) == 1:
+      return False
+    result = result[0]
+    return {
+      'id': result[0],
+      'dispensary_id': result[1],
+      'name': result[2],
+      'phone': result[3],
+      'address': result[4],
+      'active': result[5],
+      'created_at': result[6]
+    }
 
   def GetPatientsByDispensary(self, username, onlyActive=False):
     patients = self.DBSelect("""SELECT Name, Phone, Active, CreatedAt FROM Patient WHERE DispensaryID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}') ORDER BY Active""".format(username=username))
     if onlyActive:
       patients = filter(lambda patient: patient[2] == True, patients)
     return patients
-
-  # Currently unused
-
-  # def GetDispensaryNumbers(self, username):
-  #   query = """SELECT userphone from UserInfo where DispensaryId = (select DispensaryId from LoginDisp where loginname = '{LoginName}')""".format(LoginName = username)
-  #   phoneList = self.DBSelect(query)
-  #   return phoneList
-
-  # def AddInventory(self, DispName, ProductName, Amount):
-  #   DispName = DispName.lower()
-  #   ProductName = ProductName.lower()
-
-  #   self.DBInsert("""INSERT INTO Inventory values (DEFAULT, select DispensaryId from Dispensary where Name='{DispName}', '{ProductName}', {Amount}, {isAvailable})""".format(DispName=DispName, ProductName=ProductName, Amount=Amount, isAvailable=1))
-
-  # def AddOrder(self, Userphone, DispName):
-  #   DispName = DispName.lower()
-
-  #   self.DBInsert("""INSERT INTO Order values (DEFAULT, select UserId from UserInfo where Userphone={Userphone}, select DispensaryId from Dispensary where Name="{DispName}")""".format(Userphone=Userphone, DispName=DispName))
-
-  # def GetDispensaryInfoFromUserPhone(self, Userphone):
-  #   query = """SELECT dispensaryid, name from Dispensary where dispensaryid = (select dispensaryid from UserInfo where Userphone={Userphone})""".format(Userphone=Userphone)
-  #   return self.DBSelect(query)
