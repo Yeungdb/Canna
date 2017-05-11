@@ -18,16 +18,10 @@ twilio_client = Client(config.get('TWILIO', 'sid'), config.get('TWILIO', 'auth')
 
 env = config.get('APP', 'env')
 
-def send_message(number, message):
-  return twilio_client.messages.create(
-    to=number,
-    from_=twilio_number,
-    body=message)
+with open(os.path.join(current_path, '../', 'resources', 'responses.json')) as data_file:
+  responses = json.load(data_file)
 
-def is_safe_url(target):
-  ref_url = urlparse(request.host_url)
-  test_url = urlparse(urljoin(request.host_url, target))
-  return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+# Dev Helpers
 
 def start_ngrok():
   os.system("curl http://localhost:4040/api/tunnels > tunnels.json")
@@ -41,6 +35,28 @@ def start_ngrok():
   webbrowser.open(address)
   print(message)
 
+# Generic Helpers
+
+def send_message(number, messages):
+  def _create_message(message):
+    twilio_client.messages.create(
+      to=number,
+      from_=twilio_number,
+      body=message)
+
+  if isinstance(messages, list):
+    for message in messages:
+      _create_message(message)
+  else:
+    _create_message(message)
+
+def is_safe_url(target):
+  ref_url = urlparse(request.host_url)
+  test_url = urlparse(urljoin(request.host_url, target))
+  return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+
+# Number Helpers
+
 def sanitizize_num(num, to_int=True):
   sanitized_num = re.sub('[^0-9]', '', num)
 
@@ -48,3 +64,9 @@ def sanitizize_num(num, to_int=True):
     return int(float(sanitized_num))
   else:
     return sanitized_num
+
+def trim_phone(num):
+  if len(num) == 11 and num[0] == "1":
+    return num[1:]
+  return num
+
