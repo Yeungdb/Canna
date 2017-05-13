@@ -23,6 +23,15 @@
       <textarea id="address" name="address" class="standard-text-area"></textarea>
     </div>
 
+    <div>
+      <label for="timezone">Timezone</label>
+      <select id="timezone" name="timezone">
+        {% for timezone in timezones %}
+          <option value="{{ timezone }}">{{ timezone }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
     <button name="submit" type="submit" class="standard-button green">Join</button>
   </form>
 {% endblock %}

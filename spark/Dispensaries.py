@@ -39,7 +39,8 @@ def NewDispensary():
 @app.route("/dispensary/create", methods=['POST'])
 def CreateDispensary():
   requestData = request.form
-  # TODO Check for username conflicts
+  # TODO Check for unique dispensary
   db.AddDispensary(requestData['dispensary_name'], requestData['contact_name'], requestData['email'],
     requestData['phone'], requestData['address'], requestData['username'], requestData['password'])
+  # TODO Alert to successful creation
   return redirect(url_for('Index'))

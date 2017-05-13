@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import pytz
 from spark import app, authenticate, dispensary_data, db, h
 from flask import render_template, request, redirect, url_for, session
 
@@ -11,12 +12,14 @@ def Patient():
 @authenticate
 def NewPatient():
   dispensaryData = dispensary_data()
-  return render_template('/patient/new.html', dispensary=dispensaryData)
+  timezones = pytz.all_timezones
+  return render_template('/patient/new.html', dispensary=dispensaryData, timezones=timezones)
 
 @app.route("/patient/create", methods=['POST'])
 @authenticate
 def CreatePatient():
   requestData = request.form
+  # TODO Check for unique phone number
   db.CreatePatient(requestData['dispensary_name'], requestData['contact_name'],
     requestData['phone'], requestData['address'])
   # TODO Alert to successful creation
@@ -35,4 +38,5 @@ def ApprovePatient():
   phone = int(requestData['phone'])
   db.ActivatePatient(phone)
   h.send_message(phone, "Your account is active - welcome to Spark!")
+  # TODO Alert to successful activation
   return redirect(url_for('ListPatients'))

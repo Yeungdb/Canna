@@ -74,9 +74,9 @@ class Access(object):
 
   # Users
 
-  def CreatePatient(self, dispensaryName, contactName, phone, address):
+  def CreatePatient(self, dispensaryName, contactName, phone, address, timezone):
     phone = int(phone)
-    self.DBInsert("""INSERT INTO Patient VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{contactName}', {phone}, '{address}', {active})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, active=False))
+    self.DBInsert("""INSERT INTO Patient VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{contactName}', '{phone}', '{address}', '{timezone}', {active})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, timezone=timezone, active=False))
 
   def ActivatePatient(self, phone):
     self.DBInsert("""UPDATE Patient SET Active = True WHERE Phone={phone}""".format(phone=phone))
