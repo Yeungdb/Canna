@@ -60,15 +60,17 @@ class Access(object):
 
   def GetDispensaryFromUsername(self, username):
     result = self.DBSelect("""SELECT * FROM Dispensary WHERE ID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}')""".format(username=username))[0]
+    print(result)
     return {
       'username': username,
-      'name': result[0],
-      'address': result[1],
-      'contact_name': result[2],
-      'contact_email': result[3],
-      'contact_phone': result[4],
-      'active': result[5],
-      'created_at': result[6]
+      'id': result[0],
+      'name': result[1],
+      'address': result[2],
+      'contact_name': result[3],
+      'contact_email': result[4],
+      'contact_phone': result[5],
+      'active': result[6],
+      'created_at': result[7]
     }
 
   # Users
