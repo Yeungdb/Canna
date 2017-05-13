@@ -93,8 +93,9 @@ class Access(object):
       'name': result[2],
       'phone': result[3],
       'address': result[4],
-      'active': result[5],
-      'created_at': result[6]
+      'timezone': result[5],
+      'active': result[6],
+      'created_at': result[7]
     }
 
   def GetPatientsByDispensary(self, username, onlyActive=False):
