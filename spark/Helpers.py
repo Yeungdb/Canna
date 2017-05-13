@@ -48,7 +48,7 @@ def send_message(number, messages):
     for message in messages:
       _create_message(message)
   else:
-    _create_message(message)
+    _create_message(messages)
 
 def is_safe_url(target):
   ref_url = urlparse(request.host_url)
