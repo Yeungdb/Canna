@@ -12,3 +12,7 @@ DatabaseName = Spark
 number = [TWILIO NUMBER]
 sid = [TWILIO SID]
 auth = [TWILIO AUTH]
+
+[WIT]
+token = [WIT TOKEN]
+
