@@ -21,7 +21,7 @@ def CreatePatient():
   requestData = request.form
   # TODO Check for unique phone number
   db.CreatePatient(requestData['dispensary_name'], requestData['contact_name'],
-    requestData['phone'], requestData['address'])
+    requestData['phone'], requestData['address'], requestData['timezone'])
   # TODO Alert to successful creation
   return redirect(url_for('NewPatient'))
 
