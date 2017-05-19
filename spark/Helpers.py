@@ -7,24 +7,16 @@ import re
 import ConfigParser
 from urlparse import urlparse, urljoin
 from twilio.rest import Client
-from wit import Wit
 
 current_path = os.path.abspath(os.path.dirname(__file__))
 
 config = ConfigParser.ConfigParser()
 config.read(os.path.join(current_path, '../', '.env'))
 
-wit_token = config.get('WIT', 'token')
-
 twilio_number = config.get('TWILIO', 'number')
 twilio_client = Client(config.get('TWILIO', 'sid'), config.get('TWILIO', 'auth'))
 
-wit = Wit(access_token=wit_token)
-
 env = config.get('APP', 'env')
-
-with open(os.path.join(current_path, '../', 'resources', 'responses.json')) as data_file:
-  responses = json.load(data_file)
 
 # Development Helpers
 
@@ -61,9 +53,6 @@ def send_message(number, messages):
       _create_message(message)
   else:
     _create_message(messages)
-
-def converse(user, message):
-  return wit.converse(user['phone'], message)
 
 # Number Helpers
 

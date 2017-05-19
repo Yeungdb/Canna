@@ -3,16 +3,19 @@
 from spark import app, authenticate, dispensary_data, db
 from flask import render_template, request, redirect, url_for, session
 
+# Dispensary Home
 @app.route('/dispensary', methods=['GET'])
 @authenticate
 def DispensaryHome():
   dispensaryData = dispensary_data()
   return render_template('/dispensary/home.html', dispensary=dispensaryData)
 
+# Dispensary Login Form
 @app.route('/dispensary/login', methods=['GET'])
 def DispensaryLogin():
   return render_template('/dispensary/login.html')
 
+# Dispensary Logout
 @app.route('/dispensary/logout')
 @authenticate
 def DispensaryLogout():
@@ -20,6 +23,7 @@ def DispensaryLogout():
   db.isLoggedIn = 0
   return redirect(url_for('Index'))
 
+# Dispensary Authentication
 @app.route('/dispensary/auth', methods=['POST'])
 def DispensaryAuth():
   requestData = request.form
@@ -32,10 +36,12 @@ def DispensaryAuth():
   else:
     return redirect(url_for('DispensaryLogin'))
 
+# Create New Dispensary Form
 @app.route("/dispensary/new", methods=['GET'])
 def NewDispensary():
   return render_template('/dispensary/new.html')
 
+# Create Dispensary
 @app.route("/dispensary/create", methods=['POST'])
 def CreateDispensary():
   requestData = request.form

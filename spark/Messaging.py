@@ -2,6 +2,16 @@
 
 from spark import app, db, h
 from flask import Response, abort, request
+from wit import Wit
+
+# Load Interactions
+from spark.interactions.Orders   import Enquiries
+from spark.interactions.Help     import Dispensary, Bot
+from spark.interactions.Products import Lookup
+from spark.interactions.Goodies  import Goodies
+
+wit_token = h.config.get('WIT', 'token')
+wit = Wit(access_token=wit_token)
 
 @app.route("/Receiver", methods=['POST'])
 def MessageReceived():
@@ -12,28 +22,9 @@ def MessageReceived():
   if not user:
     h.send_message(from_number, h.responses["not_a_patient"])
   else:
-    react(user, from_message)
+    interact(from_message)
 
   return Response(response={}, status=200, mimetype="text/xml")
 
-def react(user, message):
-  conversation = h.converse(user, message)
-
-  # TODO Once bot is trained, increase value
-  #   of confidence check
-  if conversation['confidence'] < 0.05:
-    return h.send_message(user['phone'], h.responses["cannot_understand"])
-
-  if conversation['type'] == 'stop':
-    return
-
-  if conversation['type'] == 'msg':
-    h.send_message(user['phone'], conversation['msg'])
-  elif conversation['type'] == 'action':
-    # perform all actions
-  elif conversation['type'] == 'merge':
-    # merge contexts
-
-  # Succesively call react until the our
-  #   conversation type is 'stop'
-  react(user, None)
+def interact(message):
+  print(wit.message(message))

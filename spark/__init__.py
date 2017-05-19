@@ -5,8 +5,7 @@ from webassets.filter import get_filter
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_assets import Environment, Bundle
 from flask_login import LoginManager
-import Database
-import Helpers
+from spark import Database, Helpers
 
 # Set up app
 app = Flask(__name__)
@@ -59,7 +58,4 @@ def Index():
   return render_template('index.html')
 
 # Import main components
-import Messaging
-import Campaigns
-import Patients
-import Dispensaries
+from spark import Messaging, Campaigns, Patients, Dispensaries

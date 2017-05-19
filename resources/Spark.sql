@@ -36,6 +36,7 @@ create table Patient (
   Address text not null,
   Timezone text not null,
   Active boolean not null,
+  OptedIn boolean not null,
   CreatedAt timestamp not null default (now() at time zone 'UTC')
 );
 

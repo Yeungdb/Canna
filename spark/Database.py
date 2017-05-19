@@ -7,7 +7,7 @@ import os
 import time
 import json
 import ConfigParser
-import Helpers
+from spark import Helpers
 
 JWT = Helpers.config.get('APP', 'JWT')
 DBUser = Helpers.config.get('DB', 'USER')
@@ -15,6 +15,7 @@ DBPass = Helpers.config.get('DB', 'DBPD')
 DBHost = Helpers.config.get('DB', 'HOST')
 DBName = Helpers.config.get('DB', 'DatabaseName')
 
+# Database
 class Access(object):
   def __init__(self, DatabaseName=DBName, user=DBUser, password=DBPass, host=DBHost):
     self._conn = psycopg2.connect(database=DatabaseName, user=user, password=password, host=host)
