@@ -5,13 +5,41 @@ html {
 }
 
 body {
-  display: flex;
+  font-size: 16px;
+  font-weight: 400;
   font-family: $primary-font;
-  font-size: 15px;
+  color: $slate-black;
+  background-color: #fff;
   -moz-font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
 }
 
-#container {
-  padding: 20px;
+.wrap {
+  margin: 0 auto;
+  max-width: 920px;
+  padding: 0 7%;
+}
+
+.emblem {
+  display: inline-block;
+  text-decoration: none;
+  background: url('../images/logo-emblem.png');
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.emblem.large {
+  width: 59px;
+  height: 75px;
+}
+
+.emblem.medium {
+  width: 40px;
+  height: 51px;
+}
+
+.emblem.small {
+  width: 24px;
+  height: 30px;
 }

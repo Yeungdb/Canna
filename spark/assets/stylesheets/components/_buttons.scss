@@ -1,103 +1,30 @@
 .standard-button {
-  position: relative;
-  padding: 0 19px;
-  height: 45px;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  font-family: inherit;
-  letter-spacing: 1px;
+  display: inline-block;
+  padding: 5px 30px;
   color: #fff;
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  line-height: 60px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  box-shadow: rgba(50, 65, 86, 0.2) 0 7px 28px;
   border: none;
-  border-radius: 3px;
-  transition: all 0.07s ease-in;
   cursor: pointer;
+  transition: all 0.07s ease-in;
 
   &:focus {
     outline: none;
   }
 
-  &[class*="stroke"] {
-    box-sizing: border-box;
-  }
-
-  &.black {
-    background-color: $slate-black;
+  &.turquoise {
+    background-color: #42e1d3;
 
     &:hover,
     &:focus {
-      background-color: darken($slate-black, 8%);
-    }
-  }
-
-  &.black-stroke {
-    background-color: #fff;
-    border: 1px solid $slate-black;
-    color: $slate-black;
-
-    &:hover,
-    &:focus {
-      background-color: rgba($slate-black, 0.05);
-    }
-  }
-
-  &.green {
-    background-color: $fern-green;
-
-    &:hover,
-    &:focus {
-      background-color: darken($fern-green, 8%);
-    }
-  }
-
-  &.green-stroke {
-    background-color: #fff;
-    border: 1px solid $fern-green;
-    color: $fern-green;
-
-    &:hover,
-    &:focus {
-      background-color: rgba($fern-green, 0.1);
-    }
-  }
-
-  &.blue {
-    background-color: $aqua-blue;
-
-    &:hover,
-    &:focus {
-      background-color: darken($aqua-blue, 8%);
-    }
-  }
-
-  &.blue-stroke {
-    background-color: #fff;
-    border: 1px solid $aqua-blue;
-    color: $aqua-blue;
-
-    &:hover,
-    &:focus {
-      background-color: rgba($aqua-blue, 0.1);
-    }
-  }
-
-  &.orange {
-    background-color: $pumpkin-orange;
-
-    &:hover,
-    &:focus {
-      background-color: darken($pumpkin-orange, 8%);
-    }
-  }
-
-  &.orange-stroke {
-    background-color: #fff;
-    border: 1px solid $pumpkin-orange;
-    color: $pumpkin-orange;
-
-    &:hover,
-    &:focus {
-      background-color: rgba($pumpkin-orange, 0.1);
+      background-color: darken(#42e1d3, 8%);
     }
   }
 }

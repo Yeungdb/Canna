@@ -3,7 +3,28 @@
 {% block title %}Welcome to Spark{% endblock %}
 
 {% block content %}
-  <h1>Spark</h1>
+  <header id="site-header" class="wrap">
+    <a href="/" id="header-logo">
+      <h1>Spark</h1>
+    </a>
+
+    <ul id="header-nav">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="mailto:hi@tryspark.co">Contact</a></li>
+    </ul>
+  </header>
+
+  <section id="intro-content" class="wrap">
+    <div id="intro-info">
+      <h1>Medical marijuana made convenient</h1>
+      <p>Mail-order cannabis from your favourite producer directly through text messages.</p>
+      <a href="#" class="standard-button large turquoise">Sign up for early access</a>
+    </div>
+    <div id="intro-phone">
+
+    </div>
+  </section>
 
   <div>
     <a href="{{ url_for('DispensaryLogin') }}">Dispensary Login</a>
