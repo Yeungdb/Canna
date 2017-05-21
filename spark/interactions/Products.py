@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-from spark.interactions import Interaction
+from spark import h
+from spark.interactions import Interaction, AcceptedInteractions
 
 class Lookup(Interaction):
 
