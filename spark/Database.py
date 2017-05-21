@@ -77,7 +77,8 @@ class Access(object):
 
   def CreatePatient(self, dispensaryName, contactName, phone, address, timezone):
     phone = int(phone)
-    self.DBInsert("""INSERT INTO Patient VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{contactName}', '{phone}', '{address}', '{timezone}', {active})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, timezone=timezone, active=False))
+    # TODO optedIn needs to be false!
+    self.DBInsert("""INSERT INTO Patient VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{contactName}', '{phone}', '{address}', '{timezone}', {active}, {optedIn})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, timezone=timezone, active=False, optedIn=True))
 
   def ActivatePatient(self, phone):
     self.DBInsert("""UPDATE Patient SET Active = True WHERE Phone={phone}""".format(phone=phone))
@@ -104,3 +105,23 @@ class Access(object):
     if onlyActive:
       patients = filter(lambda patient: patient[2] == True, patients)
     return patients
+
+  # Interactions
+
+  def GetLastInteraction(self, user):
+    patientID = user['id']
+    result = self.DBSelect("""SELECT * FROM Interaction WHERE PatientID={patientID}""".format(patientID=patientID))
+    if not len(result) == 1:
+      return False
+    result = result[0]
+    return {
+      'id': result[0],
+      'patient_id': result[1],
+      'state': result[2],
+      'created_at': result[3]
+    }
+
+  def CreateNewInteraction(self, user):
+    patientID = user['id']
+    state = '{ "customer": "Lily Bush" }'
+    self.DBInsert("""INSERT INTO Interaction VALUES (DEFAULT, '{patientID}', '{state}')""".format(patientID=patientID, state=state))

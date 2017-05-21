@@ -1,0 +1,333 @@
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0; }
+
+    article, aside, footer, header, nav, section {
+      display: block; }
+
+      h1 {
+        font-size: 2em;
+        margin: 0.67em 0; }
+
+        figcaption, figure, main {
+          display: block; }
+
+          figure {
+            margin: 1em 40px; }
+
+            hr {
+              box-sizing: content-box;
+              height: 0;
+              overflow: visible; }
+
+              pre {
+                font-family: monospace, monospace;
+                font-size: 1em; }
+
+                a {
+                  background-color: transparent;
+                  -webkit-text-decoration-skip: objects; }
+
+                  a:active, a:hover {
+                    outline-width: 0; }
+
+                    abbr[title] {
+                      border-bottom: none;
+                      text-decoration: underline;
+                      text-decoration: underline dotted; }
+
+                      b, strong {
+                        font-weight: inherit; }
+
+                        b, strong {
+                          font-weight: bolder; }
+
+                          code, kbd, samp {
+                            font-family: monospace, monospace;
+                            font-size: 1em; }
+
+                            dfn {
+                              font-style: italic; }
+
+                              mark {
+                                background-color: #ff0;
+                                color: #000; }
+
+                                small {
+                                  font-size: 80%; }
+
+                                  sub, sup {
+                                    font-size: 75%;
+                                    line-height: 0;
+                                    position: relative;
+                                    vertical-align: baseline; }
+
+                                    sub {
+                                      bottom: -0.25em; }
+
+                                      sup {
+                                        top: -0.5em; }
+
+                                        audio, video {
+                                          display: inline-block; }
+
+                                          audio:not([controls]) {
+                                            display: none;
+                                            height: 0; }
+
+                                            img {
+                                              border-style: none; }
+
+                                              svg:not(:root) {
+                                                overflow: hidden; }
+
+                                                button, input, optgroup, select, textarea {
+                                                  font-family: sans-serif;
+                                                  font-size: 100%;
+                                                  line-height: 1.15;
+                                                  margin: 0; }
+
+                                                  button, input {
+                                                    overflow: visible; }
+
+                                                    button, select {
+                                                      text-transform: none; }
+
+                                                      button, html [type="button"], [type="reset"], [type="submit"] {
+                                                        -webkit-appearance: button; }
+
+                                                        button::-moz-focus-inner, [type="button"]::-moz-focus-inner,
+                                                        [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
+                                                          border-style: none;
+                                                          padding: 0; }
+
+                                                          button:-moz-focusring, [type="button"]:-moz-focusring,
+                                                          [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {
+                                                            outline: 1px dotted ButtonText; }
+
+                                                            fieldset {
+                                                              border: 1px solid #c0c0c0;
+                                                              margin: 0 2px;
+                                                              padding: 0.35em 0.625em 0.75em; }
+
+                                                              legend {
+                                                                box-sizing: border-box;
+                                                                color: inherit;
+                                                                display: table;
+                                                                max-width: 100%;
+                                                                padding: 0;
+                                                                white-space: normal; }
+
+                                                                progress {
+                                                                  display: inline-block;
+                                                                  vertical-align: baseline; }
+
+                                                                  textarea {
+                                                                    overflow: auto; }
+
+                                                                    [type="checkbox"], [type="radio"] {
+                                                                      box-sizing: border-box;
+                                                                      padding: 0; }
+
+                                                                      [type="number"]::-webkit-inner-spin-button,
+                                                                      [type="number"]::-webkit-outer-spin-button {
+                                                                        height: auto; }
+
+                                                                        [type="search"] {
+                                                                          -webkit-appearance: textfield;
+                                                                          outline-offset: -2px; }
+
+                                                                          [type="search"]::-webkit-search-cancel-button,
+                                                                          [type="search"]::-webkit-search-decoration {
+                                                                            -webkit-appearance: none; }
+
+                                                                            ::-webkit-file-upload-button {
+                                                                              -webkit-appearance: button;
+                                                                              font: inherit; }
+
+                                                                              details, menu {
+                                                                                display: block; }
+
+                                                                                summary {
+                                                                                  display: list-item; }
+
+                                                                                  canvas {
+                                                                                    display: inline-block; }
+
+                                                                                    template {
+                                                                                      display: none; }
+
+                                                                                      [hidden] {
+                                                                                        display: none; }
+
+                                                                                        body, html {
+                                                                                          width: 100%;
+                                                                                          height: 100%; }
+
+                                                                                          body {
+                                                                                            font-size: 16px;
+                                                                                            font-weight: 400;
+                                                                                            font-family: "Rubik", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                                                            color: #324156;
+                                                                                            background-color: #fff;
+                                                                                            -moz-font-smoothing: antialiased;
+                                                                                            -webkit-font-smoothing: antialiased; }
+
+                                                                                            .wrap {
+                                                                                              margin: 0 auto;
+                                                                                              max-width: 920px;
+                                                                                              padding: 0 7%; }
+
+                                                                                              .emblem {
+                                                                                                display: inline-block;
+                                                                                                text-decoration: none;
+                                                                                                background: url('../images/logo-emblem.png');
+                                                                                                background-position: center center;
+                                                                                                background-size: contain;
+                                                                                                background-repeat: no-repeat; }
+
+                                                                                                .emblem.large {
+                                                                                                  width: 59px;
+                                                                                                  height: 75px; }
+
+                                                                                                  .emblem.medium {
+                                                                                                    width: 40px;
+                                                                                                    height: 51px; }
+
+                                                                                                    .emblem.small {
+                                                                                                      width: 24px;
+                                                                                                      height: 30px; }
+
+                                                                                                      .wrap-large {
+                                                                                                        max-width: 1000px;
+                                                                                                        margin-left: auto;
+                                                                                                        margin-right: auto; }
+
+                                                                                                        .wrap-medium {
+                                                                                                          max-width: 700px;
+                                                                                                          margin-left: auto;
+                                                                                                          margin-right: auto; }
+
+                                                                                                          .vertical-pad {
+                                                                                                            padding-left: 15px;
+                                                                                                            padding-right: 15px; }
+                                                                                                            @media (min-width: 768px) {
+                                                                                                              .vertical-pad {
+                                                                                                                padding-left: 20px;
+                                                                                                                padding-right: 20px;   }
+}
+
+.standard-button {
+  display: inline-block;
+  padding: 5px 30px;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  line-height: 60px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  box-shadow: rgba(50, 65, 86, 0.2) 0 7px 28px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.07s ease-in; }
+  .standard-button:focus {
+    outline: none; }
+    .standard-button.turquoise {
+      background-color: #42e1d3; }
+      .standard-button.turquoise:hover, .standard-button.turquoise:focus {
+        background-color: #22d8c8; }
+
+.standard-text-field, .standard-text-area {
+  border: none;
+  background: #f2f2f2;
+  border-radius: 3px;
+  font-family: inherit;
+  transition: background-color 0.1s ease-in;
+  color: #324156;
+  box-sizing: border-box; }
+  .standard-text-field:focus, .standard-text-area:focus {
+    outline: none;
+    background-color: #eee; }
+    .standard-text-field.placeholder, .standard-text-area.placeholder {
+      color: rgba(50, 65, 86, 0.3);
+      transition: color 0.1s ease-in; }
+      .standard-text-field.placeholder:focus, .standard-text-area.placeholder:focus {
+        color: rgba(50, 65, 86, 0.7); }
+  .standard-text-field:-moz-placeholder, .standard-text-area:-moz-placeholder {
+    color: rgba(50, 65, 86, 0.3);
+    transition: color 0.1s ease-in; }
+    .standard-text-field:-moz-placeholder:focus,
+    .standard-text-area:-moz-placeholder:focus {
+      color: rgba(50, 65, 86, 0.7); }
+  .standard-text-field::-moz-placeholder, .standard-text-area::-moz-placeholder {
+    color: rgba(50, 65, 86, 0.3);
+    transition: color 0.1s ease-in; }
+    .standard-text-field::-moz-placeholder:focus,
+    .standard-text-area::-moz-placeholder:focus {
+      color: rgba(50, 65, 86, 0.7); }
+  .standard-text-field::-webkit-input-placeholder,
+  .standard-text-area::-webkit-input-placeholder {
+    color: rgba(50, 65, 86, 0.3);
+    transition: color 0.1s ease-in; }
+    .standard-text-field::-webkit-input-placeholder:focus,
+    .standard-text-area::-webkit-input-placeholder:focus {
+      color: rgba(50, 65, 86, 0.7); }
+  .standard-text-field.code, .standard-text-area.code {
+    font-family: "Source Sans Code", Monaco, monospace;
+    letter-spacing: -0.02em;
+    font-size: 13px; }
+
+.standard-text-field {
+  font-size: 14px;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 45px; }
+
+  .standard-text-area {
+    padding: 13px;
+    box-sizing: border-box;
+    font-size: 14px;
+    resize: vertical;
+    line-height: 21px; }
+
+    form > div {
+      margin-bottom: 10px; }
+      form > div label {
+        width: 140px;
+        display: inline-block;
+        vertical-align: middle; }
+        form > div input, form > div textarea {
+          width: 360px;
+          display: inline-block;
+          vertical-align: middle; }
+
+.rich-text {
+  line-height: 1.3;
+  color: #324156; }
+  .rich-text > * {
+    margin: 10px 0; }
+    .rich-text > *:first-child {
+      margin-top: 0; }
+      .rich-text > *:last-child {
+        margin-bottom: 0; }
+  .rich-text a {
+    color: inherit;
+    word-break: break-word; }
+    .rich-text ul, .rich-text ol {
+      padding-left: 15px; }
+      .rich-text img, .rich-text iframe, .rich-text object {
+        max-width: 100%;
+        height: auto; }
+        .rich-text hr {
+          height: 1px;
+          margin: 20px 0;
+          border: none;
+          background-color: rgba(50, 65, 86, 0.5); }

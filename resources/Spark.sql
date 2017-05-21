@@ -43,7 +43,7 @@ create table Patient (
 create table Interaction (
   ID serial primary key not null,
   PatientID integer not null,
-  StateKey text,
+  State jsonb not null,
   CreatedAt timestamp not null default (now() at time zone 'UTC')
 );
 

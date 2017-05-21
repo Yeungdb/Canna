@@ -46,6 +46,14 @@ def interact(message):
   for key, value in entities.iteritems():
     if key in AcceptedInteractions:
       actionable = True
-      AcceptedInteractions[key]()
+      last_match = Interaction.lastInteractionMatch(key, value)
+      action_result = AcceptedInteractions[key]['action']()
+
+      if not last_match == False:
+        Interaction.updateExisting(last_match['id'], action_result)
+      else:
+        Interaction.createNew(action_result)
+
+      break
 
   return actionable
