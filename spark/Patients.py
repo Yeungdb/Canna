@@ -3,6 +3,7 @@
 import pytz
 from spark import app, authenticate, dispensary_data, db, h
 from flask import render_template, request, redirect, url_for, session
+from spark.interactions.Users import Onboarding
 
 # Patient Redirect
 @app.route("/patient")
@@ -40,8 +41,13 @@ def ListPatients():
 @authenticate
 def ApprovePatient():
   requestData = request.form
+
   phone = int(requestData['phone'])
+  Onboarding.user = db.GetPatientByPhone(phone)
   db.ActivatePatient(phone)
-  h.send_message(phone, "Your account is active - welcome to Spark!")
+
+  onboarding = Onboarding()
+  onboarding.initial_greeting()
+
   # TODO Alert to successful activation
   return redirect(url_for('ListPatients'))

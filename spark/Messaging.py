@@ -9,17 +9,19 @@ wit = Wit(access_token=wit_token)
 
 # Load Interactions
 from spark.interactions          import Interaction, AcceptedInteractions, responses
+from spark.interactions.Users    import Onboarding
 from spark.interactions.Orders   import Enquiries
 from spark.interactions.Help     import Dispensary, Bot
 from spark.interactions.Products import Lookup
 from spark.interactions.Goodies  import Goodies
 
 interactions = {}
-interactionModules = [Enquiries, Dispensary, Bot, Lookup, Goodies]
+interactionModules = [Onboarding, Enquiries, Dispensary, Bot, Lookup, Goodies]
 
 for interaction in interactionModules:
   interactions[interaction.identifier] = interaction()
 
+# Route to receive messages
 @app.route("/Receiver", methods=['POST'])
 def MessageReceived():
   from_number = h.sanitizize_num(request.values.get("From"))
@@ -37,6 +39,7 @@ def MessageReceived():
 
   return Response(response={}, status=200, mimetype="text/xml")
 
+# Parse incoming message and perform applicable interactions
 def interact(message):
   response = wit.message(message)
   entities = Interaction.confidentEntities(response['entities'])
