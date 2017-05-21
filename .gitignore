@@ -1,7 +1,9 @@
 *.env
 *.pyc
 
-spark/static/site.css
-spark/static/site.js
+spark/static/dispensary.css
+spark/static/general.css
+spark/static/dispensary.js
+spark/static/general.js
 spark/static/.webassets-cache
 tunnels.json
