@@ -73,6 +73,10 @@ class Access(object):
       'created_at': result[7]
     }
 
+  def DispensaryExists(self, username):
+    result = self.DBSelect("""SELECT * FROM Dispensary WHERE ID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}')""".format(username=username))
+    return len(result) == 1
+
   # Users
 
   def CreatePatient(self, dispensaryName, contactName, phone, address, timezone):
@@ -115,6 +119,11 @@ class Access(object):
     if onlyActive:
       patients = filter(lambda patient: patient[2] == True, patients)
     return patients
+
+  def PatientExists(self, phone):
+    phone = int(phone)
+    result = self.DBSelect("""SELECT * FROM Patient WHERE Phone={phone}""".format(phone=phone))
+    return len(result) == 1
 
   # Interactions
 

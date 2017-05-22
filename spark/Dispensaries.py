@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from spark import app, authenticate, dispensary_data, db
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, flash, request, redirect, url_for, session
 
 # Dispensary Home
 @app.route('/dispensary', methods=['GET'])
@@ -45,8 +45,10 @@ def NewDispensary():
 @app.route("/dispensary/create", methods=['POST'])
 def CreateDispensary():
   requestData = request.form
-  # TODO Check for unique dispensary
+  if db.DispensaryExists(requestData['username']):
+    flash('Sorry, that dispensary username is taken', 'error')
+    return redirect(url_for('NewDispensary'))
   db.AddDispensary(requestData['dispensary_name'], requestData['contact_name'], requestData['email'],
     requestData['phone'], requestData['address'], requestData['username'], requestData['password'])
-  # TODO Alert to successful creation
+  flash('Dispensary has been created!', 'success')
   return redirect(url_for('Index'))

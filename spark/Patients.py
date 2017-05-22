@@ -2,7 +2,7 @@
 
 import pytz
 from spark import app, authenticate, dispensary_data, db, h
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, flash, request, redirect, url_for, session
 from spark.interactions.Users import Onboarding
 
 # Patient Redirect
@@ -23,10 +23,12 @@ def NewPatient():
 @authenticate
 def CreatePatient():
   requestData = request.form
-  # TODO Check for unique phone number
+  if db.PatientExists(requestData['phone']):
+    flash('Sorry, this person already exists', 'error')
+    return redirect(url_for('NewPatient'))
   db.CreatePatient(requestData['dispensary_name'], requestData['contact_name'],
     requestData['phone'], requestData['address'], requestData['timezone'])
-  # TODO Alert to successful creation
+  flash('User has been created!', 'success')
   return redirect(url_for('NewPatient'))
 
 # List Dispensary Patients
@@ -51,5 +53,5 @@ def ApprovePatient():
   onboarding = Onboarding()
   onboarding.initial_greeting()
 
-  # TODO Alert to successful activation
+  flash('User has been activated', 'info')
   return redirect(url_for('ListPatients'))
