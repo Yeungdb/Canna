@@ -10,6 +10,7 @@
       <th>Name</th>
       <th>Phone</th>
       <th>Approve</th>
+      <th>Opted-In</th>
     </tr>
 
     {% for patient in patients %}
@@ -26,6 +27,7 @@
             </form>
           {% endif %}
         </td>
+        <td>{{ patient[3] }}</td>
       </tr>
     {% endfor %}
   </table>

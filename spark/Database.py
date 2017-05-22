@@ -77,11 +77,20 @@ class Access(object):
 
   def CreatePatient(self, dispensaryName, contactName, phone, address, timezone):
     phone = int(phone)
-    # TODO optedIn needs to be false!
-    self.DBInsert("""INSERT INTO Patient VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{contactName}', '{phone}', '{address}', '{timezone}', {active}, {optedIn})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, timezone=timezone, active=False, optedIn=True))
+    self.DBInsert("""INSERT INTO Patient VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{contactName}', '{phone}', '{address}', '{timezone}', {active}, {optedIn})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, timezone=timezone, active=False, optedIn=False))
 
   def ActivatePatient(self, phone):
+    phone = int(phone)
     self.DBInsert("""UPDATE Patient SET Active = True WHERE Phone={phone}""".format(phone=phone))
+
+  def OptInPatient(self, phone):
+    phone = int(phone)
+    self.DBInsert("""UPDATE Patient SET OptedIn = True WHERE Phone={phone}""".format(phone=phone))
+
+  def PatientIsOptedIn(self, phone):
+    phone = int(phone)
+    result = self.DBSelect("""SELECT * FROM Patient WHERE OptedIn={optedIn}""".format(optedIn=True))
+    return len(result) == 1;
 
   def GetPatientByPhone(self, phone):
     phone = int(phone)
@@ -97,11 +106,12 @@ class Access(object):
       'address': result[4],
       'timezone': result[5],
       'active': result[6],
-      'created_at': result[7]
+      'opted_in': result[7],
+      'created_at': result[8]
     }
 
   def GetPatientsByDispensary(self, username, onlyActive=False):
-    patients = self.DBSelect("""SELECT Name, Phone, Active, CreatedAt FROM Patient WHERE DispensaryID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}') ORDER BY Active""".format(username=username))
+    patients = self.DBSelect("""SELECT Name, Phone, Active, OptedIn, CreatedAt FROM Patient WHERE DispensaryID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}') ORDER BY Active, CreatedAt""".format(username=username))
     if onlyActive:
       patients = filter(lambda patient: patient[2] == True, patients)
     return patients

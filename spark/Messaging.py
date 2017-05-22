@@ -30,7 +30,6 @@ def MessageReceived():
 
   if not user:
     h.send_message(from_number, responses["system"]["not_a_patient"])
-  # TODO elif has user but user is not opted in
   else:
     Interaction.user = user
     actionable = interact(from_message)

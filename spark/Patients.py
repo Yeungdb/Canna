@@ -45,6 +45,8 @@ def ApprovePatient():
   phone = int(requestData['phone'])
   Onboarding.user = db.GetPatientByPhone(phone)
   db.ActivatePatient(phone)
+  # TODO move this to seperate opt-in step
+  db.OptInPatient(phone)
 
   onboarding = Onboarding()
   onboarding.initial_greeting()
