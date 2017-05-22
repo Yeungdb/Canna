@@ -3,9 +3,13 @@
 <html>
   <head>
     {% block head %}
-      <title>{% block title %}Spark{% endblock %}</title>
-      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta charset="utf-8">
 
+      <title>{% block title %}Spark{% endblock %}</title>
+      <meta name="description" content="{% block description %}Order cannabis from your favourite dispensary directly through text messages.{% endblock %}">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
       <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
 
       {% assets "dispensary_scss" %}
@@ -19,24 +23,9 @@
   </head>
 
   <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flash-messages">
-          {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+    {% include 'partials/dispensary-header.html' %}
+    {% include 'partials/flash.html' %}
 
-    <div id="container">
-      {% block content %}{% endblock %}
-
-      <div>
-        <hr />
-        <a href="{{ url_for('DispensaryHome') }}">Home</a> &bull;
-        <a href="{{ url_for('DispensaryLogout') }}">Logout</a>
-      </div>
-    </div>
+    {% block content %}{% endblock %}
   </body>
 </html>

@@ -1,21 +1,27 @@
 {% extends "general-layout.html" %}
 
 {% block title %}Login | Spark{% endblock %}
+{% block description %}Log in to Spark{% endblock %}
 
 {% block content %}
-  <h1>Dispensary Login</h1>
+  <div class="wrap slim standalone-form-page">
+    <div class="emblem large"></div>
+    <h1 class="page-title">Dispensary Login</h1>
 
-  <form action="{{ url_for('DispensaryAuth') }}" method="post">
-    <div>
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" class="standard-text-field" />
-    </div>
+    {% include 'partials/flash.html' %}
 
-    <div>
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" class="standard-text-field" />
-    </div>
+    <form action="{{ url_for('DispensaryAuth') }}" method="post">
+      <div>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" class="standard-text-field" />
+      </div>
 
-    <button name="submit" type="submit" class="standard-button blue">Login</button>
-  </form>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" class="standard-text-field" />
+      </div>
+
+      <button name="submit" type="submit" class="standard-button turquoise">Login</button>
+    </form>
+  </div>
 {% endblock %}

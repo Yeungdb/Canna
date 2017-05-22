@@ -30,20 +30,20 @@ assets.register('dispensary_js',   Bundle('dispensary.js',   filters='jsmin',  o
 # Error handlers
 @app.errorhandler(404)
 def handle404(err):
-  return render_template('404.html')
+  return render_template('site/404.html')
 
 @app.errorhandler(403)
 def handle404(err):
-  return render_template('403.html')
+  return render_template('site/403.html')
 
 @app.errorhandler(500)
 def handle404(err):
-  return render_template('500.html', error=err)
+  return render_template('site/500.html', error=err)
 
 # Main page
 @app.route('/')
 def Index():
-  return render_template('index.html')
+  return render_template('site/index.html')
 
 # Common helpers
 def authenticate(f):

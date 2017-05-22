@@ -3,44 +3,49 @@
 {% block title %}Create a New Dispensary | Spark{% endblock %}
 
 {% block content %}
-  <h1>New Dispensary</h1>
+  <div class="wrap slim standalone-form-page">
+    <div class="emblem large"></div>
+    <h1 class="page-title">New Dispensary</h1>
 
-  <form action="{{ url_for('CreateDispensary') }}" method="post">
-    <div>
-      <label for="dispensary_name">Dispensary Name</label>
-      <input id="dispensary_name" name="dispensary_name" type="text" class="standard-text-field" />
-    </div>
+    {% include 'partials/flash.html' %}
 
-    <div>
-      <label for="contact_name">Contact Name</label>
-      <input id="contact_name" name="contact_name" type="text" class="standard-text-field" />
-    </div>
+    <form action="{{ url_for('CreateDispensary') }}" method="post">
+      <div>
+        <label for="dispensary_name">Dispensary Name</label>
+        <input id="dispensary_name" name="dispensary_name" type="text" class="standard-text-field" />
+      </div>
 
-    <div>
-      <label for="email">Email Address</label>
-      <input id="email" name="email" type="email" class="standard-text-field" />
-    </div>
+      <div>
+        <label for="contact_name">Contact Name</label>
+        <input id="contact_name" name="contact_name" type="text" class="standard-text-field" />
+      </div>
 
-    <div>
-      <label for="phone">Telephone</label>
-      <input id="phone" name="phone" type="tel" class="standard-text-field" />
-    </div>
+      <div>
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email" class="standard-text-field" />
+      </div>
 
-    <div>
-      <label for="address">Address</label>
-      <textarea id="address" name="address" type="text" class="standard-text-area"></textarea>
-    </div>
+      <div>
+        <label for="phone">Telephone</label>
+        <input id="phone" name="phone" type="tel" class="standard-text-field" />
+      </div>
 
-    <div>
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" class="standard-text-field" />
-    </div>
+      <div>
+        <label for="address">Address</label>
+        <textarea id="address" name="address" type="text" class="standard-text-area"></textarea>
+      </div>
 
-    <div>
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" class="standard-text-field" />
-    </div>
+      <div>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" class="standard-text-field" />
+      </div>
 
-    <button name="submit" type="submit" class="standard-button green">Submit</button>
-  </form>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" class="standard-text-field" />
+      </div>
+
+      <button name="submit" type="submit" class="standard-button turquoise">Submit</button>
+    </form>
+  </div>
 {% endblock %}

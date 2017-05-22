@@ -3,32 +3,34 @@
 {% block title %}Your Patients | Spark{% endblock %}
 
 {% block content %}
-  <h1>Your Patients</h1>
+  <div class="wrap">
+    <h1 class="page-title">Your Patients</h1>
 
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Approve</th>
-      <th>Opted-In</th>
-    </tr>
-
-    {% for patient in patients %}
+    <table>
       <tr>
-        <td>{{ patient[0] }}</td>
-        <td>{{ patient[1] }}</td>
-        <td>
-          {% if patient[2] == True %}
-            <span>Approved!</span>
-          {% else %}
-            <form action="{{ url_for('ApprovePatient') }}" method="post">
-              <input type="hidden" name="phone" value="{{ patient[1] }}" />
-              <button name="submit" type="submit">Approve</button>
-            </form>
-          {% endif %}
-        </td>
-        <td>{{ patient[3] }}</td>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Approve</th>
+        <th>Opted-In</th>
       </tr>
-    {% endfor %}
-  </table>
+
+      {% for patient in patients %}
+        <tr>
+          <td>{{ patient[0] }}</td>
+          <td>{{ patient[1] }}</td>
+          <td>
+            {% if patient[2] == True %}
+              <span>Approved!</span>
+            {% else %}
+              <form action="{{ url_for('ApprovePatient') }}" method="post">
+                <input type="hidden" name="phone" value="{{ patient[1] }}" />
+                <button name="submit" type="submit">Approve</button>
+              </form>
+            {% endif %}
+          </td>
+          <td>{{ patient[3] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 {% endblock %}

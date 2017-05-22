@@ -3,35 +3,40 @@
 {% block title %}Join | Spark{% endblock %}
 
 {% block content %}
-  <h1>Join <i>{{ dispensary['name'] }}</i> as a Patient</h1>
+  <div class="wrap slim standalone-form-page">
+    <div class="emblem large"></div>
+    <h1 class="page-title">Join <i>{{ dispensary['name'] }}</i> as a Patient</h1>
 
-  <form action="{{ url_for('CreatePatient') }}" method="post">
-    <input type="hidden" name="dispensary_name" value="{{ dispensary['name'] }}" />
+    {% include 'partials/flash.html' %}
 
-    <div>
-      <label for="contact_name">Patient Name</label>
-      <input id="contact_name" name="contact_name" type="text" class="standard-text-field" />
-    </div>
+    <form action="{{ url_for('CreatePatient') }}" method="post">
+      <input type="hidden" name="dispensary_name" value="{{ dispensary['name'] }}" />
 
-    <div>
-      <label for="phone">Telephone</label>
-      <input id="phone" name="phone" type="tel" class="standard-text-field" />
-    </div>
+      <div>
+        <label for="contact_name">Patient Name</label>
+        <input id="contact_name" name="contact_name" type="text" class="standard-text-field" />
+      </div>
 
-    <div>
-      <label for="address">Address</label>
-      <textarea id="address" name="address" class="standard-text-area"></textarea>
-    </div>
+      <div>
+        <label for="phone">Telephone</label>
+        <input id="phone" name="phone" type="tel" class="standard-text-field" />
+      </div>
 
-    <div>
-      <label for="timezone">Timezone</label>
-      <select id="timezone" name="timezone">
-        {% for timezone in timezones %}
-          <option value="{{ timezone }}">{{ timezone }}</option>
-        {% endfor %}
-      </select>
-    </div>
+      <div>
+        <label for="address">Address</label>
+        <textarea id="address" name="address" class="standard-text-area"></textarea>
+      </div>
 
-    <button name="submit" type="submit" class="standard-button green">Join</button>
-  </form>
+      <div>
+        <label for="timezone">Timezone</label>
+        <select id="timezone" name="timezone">
+          {% for timezone in timezones %}
+            <option value="{{ timezone }}">{{ timezone }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button name="submit" type="submit" class="standard-button turquoise">Join</button>
+    </form>
+  </div>
 {% endblock %}

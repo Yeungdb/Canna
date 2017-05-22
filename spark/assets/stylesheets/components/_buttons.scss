@@ -1,11 +1,11 @@
 .standard-button {
   display: inline-block;
-  padding: 5px 30px;
+  padding: 0 20px;
   color: #fff;
   font-size: 13px;
   letter-spacing: 1px;
   font-weight: 400;
-  line-height: 60px;
+  line-height: 45px;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
@@ -15,8 +15,18 @@
   cursor: pointer;
   transition: all 0.07s ease-in;
 
+  &.large {
+    padding: 5px 30px;
+    line-height: 60px;
+  }
+
   &:focus {
     outline: none;
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: rgba(50, 65, 86, 0.2) 0 5px 18px;
   }
 
   &.turquoise {

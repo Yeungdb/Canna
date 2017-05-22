@@ -1,21 +1,28 @@
-.wrap-large {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
+.standalone-form-page {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  text-align: center;
 
-.wrap-medium {
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  @include breakpoint-min(small) {
+    margin-top: 50px;
+  }
 
-.vertical-pad {
-  padding-left: 15px;
-  padding-right: 15px;
+  form {
+    text-align: left;
+  }
 
-  @include breakpoint-min(medium) {
-    padding-left: 20px;
-    padding-right: 20px;
+  form > div {
+    margin-bottom: 15px;
+  }
+
+  form > div label {
+    margin-bottom: 5px;
+  }
+
+  form > div label,
+  form > div input,
+  form > div textarea {
+    display: block;
+    width: 100%;
   }
 }

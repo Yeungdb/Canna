@@ -6,7 +6,7 @@
       <meta charset="utf-8">
 
       <title>{% block title %}Spark{% endblock %}</title>
-      <meta name="description" content="Order cannabis from your favourite dispensary directly through text messages.">
+      <meta name="description" content="{% block description %}Order cannabis from your favourite dispensary directly through text messages.{% endblock %}">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
@@ -23,16 +23,6 @@
   </head>
 
   <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flash-messages">
-          {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
     {% block content %}{% endblock %}
   </body>
 </html>
