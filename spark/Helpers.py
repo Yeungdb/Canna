@@ -5,8 +5,8 @@ import json
 import webbrowser
 import re
 import ConfigParser
-from urlparse import urlparse, urljoin
-from twilio.rest import Client
+from urlparse        import urlparse, urljoin
+from twilio.rest     import Client
 
 current_path = os.path.abspath(os.path.dirname(__file__))
 
@@ -19,28 +19,24 @@ twilio_client = Client(config.get('TWILIO', 'sid'), config.get('TWILIO', 'auth')
 env = config.get('APP', 'env')
 
 # Development Helpers
-
 def start_ngrok():
-  os.system("curl http://localhost:4040/api/tunnels > tunnels.json")
+  os.system('curl http://localhost:4040/api/tunnels > tunnels.json')
 
   with open('tunnels.json') as data_file:
     address = json.load(data_file)['tunnels'][1]['public_url']
 
-  message = "DEVELOPMENT MODE \n" + \
-            "ngrok address: " + address
+  message = 'DEVELOPMENT MODE' + "\n" + 'ngrok address: ' + address
 
   webbrowser.open(address)
   print(message)
 
 # Generic Helpers
-
 def is_safe_url(target):
   ref_url = urlparse(request.host_url)
   test_url = urlparse(urljoin(request.host_url, target))
   return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
 
 # Messaging Helpers
-
 def send_message(number, messages):
   def _create_message(message):
     twilio_client.messages.create(
@@ -55,7 +51,6 @@ def send_message(number, messages):
     _create_message(messages)
 
 # Number Helpers
-
 def sanitizize_num(num, to_int=True):
   sanitized_num = re.sub('[^0-9]', '', num)
 
@@ -66,7 +61,6 @@ def sanitizize_num(num, to_int=True):
 
 def trim_phone(num):
   num_as_str = str(num)
-  if len(num_as_str) == 11 and num_as_str[0] == "1":
+  if len(num_as_str) == 11 and num_as_str[0] == '1':
     return int(num_as_str[1:])
   return num
-

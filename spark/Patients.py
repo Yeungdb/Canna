@@ -6,12 +6,12 @@ from flask import render_template, flash, request, redirect, url_for, session
 from spark.interactions.Users import Onboarding
 
 # Patient Redirect
-@app.route("/patient")
+@app.route('/patient')
 def Patient():
   return redirect(url_for('NewPatient'))
 
 # Create New Patient Form
-@app.route("/patient/new")
+@app.route('/patient/new')
 @authenticate
 def NewPatient():
   dispensaryData = dispensary_data()
@@ -19,13 +19,15 @@ def NewPatient():
   return render_template('/patient/new.html', dispensary=dispensaryData, timezones=timezones)
 
 # Create Patient
-@app.route("/patient/create", methods=['POST'])
+@app.route('/patient/create', methods=['POST'])
 @authenticate
 def CreatePatient():
   requestData = request.form
+
   if db.PatientExists(requestData['phone']):
     flash('Sorry, this person already exists', 'error')
     return redirect(url_for('NewPatient'))
+
   db.CreatePatient(requestData['dispensary_name'], requestData['contact_name'],
     requestData['phone'], requestData['address'], requestData['timezone'])
   flash('User has been created!', 'success')
@@ -47,6 +49,7 @@ def ApprovePatient():
   phone = int(requestData['phone'])
   Onboarding.user = db.GetPatientByPhone(phone)
   db.ActivatePatient(phone)
+
   # TODO move this to seperate opt-in step
   db.OptInPatient(phone)
 

@@ -10,5 +10,5 @@ if is_dev:
   start_ngrok()
 
 # Boot up app
-if __name__ == "__main__":
+if __name__ == '__main__':
   app.run(debug=is_dev)

@@ -28,8 +28,10 @@ def DispensaryLogout():
 def DispensaryAuth():
   requestData = request.form
   session['username'] = requestData['username']
-  if requestData['username'] == "" or requestData['password'] == "":
+
+  if requestData['username'] == '' or requestData['password'] == '':
     return redirect(url_for('Login'))
+
   db.Authenticate(requestData['username'], requestData['password'])
   if db.isLoggedIn:
     return redirect(url_for('DispensaryHome'))
@@ -37,17 +39,19 @@ def DispensaryAuth():
     return redirect(url_for('DispensaryLogin'))
 
 # Create New Dispensary Form
-@app.route("/dispensary/new", methods=['GET'])
+@app.route('/dispensary/new', methods=['GET'])
 def NewDispensary():
   return render_template('/dispensary/new.html')
 
 # Create Dispensary
-@app.route("/dispensary/create", methods=['POST'])
+@app.route('/dispensary/create', methods=['POST'])
 def CreateDispensary():
   requestData = request.form
+
   if db.DispensaryExists(requestData['username']):
     flash('Sorry, that dispensary username is taken', 'error')
     return redirect(url_for('NewDispensary'))
+
   db.AddDispensary(requestData['dispensary_name'], requestData['contact_name'], requestData['email'],
     requestData['phone'], requestData['address'], requestData['username'], requestData['password'])
   flash('Dispensary has been created!', 'success')

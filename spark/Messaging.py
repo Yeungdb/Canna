@@ -2,7 +2,7 @@
 
 from spark import app, db, h
 from flask import Response, abort, request
-from wit import Wit
+from wit   import Wit
 
 wit_token = h.config.get('WIT', 'token')
 wit = Wit(access_token=wit_token)
@@ -22,22 +22,22 @@ for interaction in interactionModules:
   interactions[interaction.identifier] = interaction()
 
 # Route to receive messages
-@app.route("/Receiver", methods=['POST'])
+@app.route('/Receiver', methods=['POST'])
 def MessageReceived():
-  from_number = h.sanitizize_num(request.values.get("From"))
-  from_message = request.values.get("Body")
+  from_number = h.sanitizize_num(request.values.get('From'))
+  from_message = request.values.get('Body')
   user = db.GetPatientByPhone(h.trim_phone(from_number))
 
   if not user:
-    h.send_message(from_number, responses["system"]["not_a_patient"])
+    h.send_message(from_number, responses['system']['not_a_patient'])
   else:
     Interaction.user = user
     actionable = interact(from_message)
 
     if not actionable:
-      h.send_message(from_number, responses["system"]["cannot_understand"])
+      h.send_message(from_number, responses['system']['cannot_understand'])
 
-  return Response(response={}, status=200, mimetype="text/xml")
+  return Response(response={}, status=200, mimetype='text/xml')
 
 # Parse incoming message and perform applicable interactions
 def interact(message):

@@ -7,9 +7,9 @@ import os
 import time
 import json
 import ConfigParser
-from spark import Helpers
+from spark          import Helpers
 
-JWT = Helpers.config.get('APP', 'JWT')
+JWT    = Helpers.config.get('APP', 'JWT')
 DBUser = Helpers.config.get('DB', 'USER')
 DBPass = Helpers.config.get('DB', 'DBPD')
 DBHost = Helpers.config.get('DB', 'HOST')
@@ -57,7 +57,7 @@ class Access(object):
     password = self.SaltAndHash(password, salt)
 
     self.DBInsert("""INSERT INTO Dispensary VALUES (DEFAULT, '{dispensaryName}', '{address}', '{contactName}', '{email}', {phone}, {active})""".format(dispensaryName=dispensaryName, address=address, contactName=contactName, email=email, phone=phone, active=True))
-    self.DBInsert("""INSERT INTO DispensaryUser VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{username}', '{password}', '{salt}')""".format(dispensaryName=dispensaryName, username=username, password=password, salt=salt))
+    self.DBInsert("""INSERT INTO DispensaryUser VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Na`me='{dispensaryName}'), '{username}', '{password}', '{salt}')""".format(dispensaryName=dispensaryName, username=username, password=password, salt=salt))
 
   def GetDispensaryFromUsername(self, username):
     result = self.DBSelect("""SELECT * FROM Dispensary WHERE ID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}')""".format(username=username))[0]
