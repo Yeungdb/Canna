@@ -32,6 +32,7 @@ def MessageReceived():
     h.send_message(from_number, responses['system']['not_a_patient'])
   else:
     Interaction.user = user
+    Interaction.dispensary = db.GetDispensaryFromPatient(user['phone'])
     actionable = interact(from_message)
 
     if not actionable:

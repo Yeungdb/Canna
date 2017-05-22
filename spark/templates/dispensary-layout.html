@@ -24,7 +24,10 @@
 
   <body>
     {% include 'partials/dispensary-header.html' %}
-    {% include 'partials/flash.html' %}
+
+    <div class="wrap">
+      {% include 'partials/flash.html' %}
+    </div>
 
     {% block content %}{% endblock %}
   </body>

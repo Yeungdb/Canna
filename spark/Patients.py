@@ -48,6 +48,7 @@ def ApprovePatient():
 
   phone = int(requestData['phone'])
   Onboarding.user = db.GetPatientByPhone(phone)
+  Onboarding.dispensary = db.GetDispensaryFromPatient(Onboarding.user['phone'])
   db.ActivatePatient(phone)
 
   # TODO move this to seperate opt-in step

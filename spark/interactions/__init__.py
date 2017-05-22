@@ -13,16 +13,29 @@ class Interaction(object):
 
   last_interaction = False
 
-  def respondAndUpdate(self, subject, next=None):
+  def respondAndUpdate(self, subject, **params):
+    if 'messageVariables' in params:
+      messageVariables = params['messageVariables']
+    else:
+      messageVariables = None
+
+    if 'nextAction' in params:
+      nextAction = params['nextAction']
+    else:
+      nextAction = None
+
     message = responses[self.identifier][subject]
+    if messageVariables:
+      message = h.interpolate_message(message, messageVariables)
     h.send_message(self.user['phone'], message)
 
     if self.last_interaction:
-      if next:
-        db.UpdateExistingInteraction(self.last_interaction['id'], next)
-      # TODO else delete last interaction
-    elif next:
-      db.CreateNewInteraction(self.user['id'], next)
+      if nextAction:
+        db.UpdateExistingInteraction(self.last_interaction['id'], nextAction)
+      else:
+        db.DeleteLastInteraction(self.last_interaction['id'])
+    elif nextAction:
+      db.CreateNewInteraction(self.user['id'], nextAction)
 
   @classmethod
   def confidentEntities(self, entities, confidence=0.5):

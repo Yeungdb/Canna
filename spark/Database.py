@@ -23,7 +23,6 @@ class Access(object):
     self.isLoggedIn = 0
 
   # Common
-
   def DBInsert(self, query):
     self._cur.execute(query)
     self._conn.commit()
@@ -38,7 +37,6 @@ class Access(object):
     return PD
 
   # Authentication
-
   def Authenticate(self, username, password):
     matchPD, salt = self.DBSelect("""SELECT Password, Salt FROM DispensaryUser WHERE Username='{username}'""".format(username=username))[0]
     password = self.SaltAndHash(password, salt)
@@ -48,7 +46,6 @@ class Access(object):
       self.isLoggedIn=0
 
   # Dispensaries
-
   def AddDispensary(self, dispensaryName, contactName, email, phone, address, username, password):
     email = email.lower()
     phone = int(phone)
@@ -73,12 +70,25 @@ class Access(object):
       'created_at': result[7]
     }
 
+  def GetDispensaryFromPatient(self, phone):
+    phone = int(phone)
+    result = self.DBSelect("""SELECT * FROM Dispensary WHERE ID=(SELECT DispensaryID FROM Patient WHERE Phone='{phone}')""".format(phone=phone))[0]
+    return {
+      'id': result[0],
+      'name': result[1],
+      'address': result[2],
+      'contact_name': result[3],
+      'contact_email': result[4],
+      'contact_phone': result[5],
+      'active': result[6],
+      'created_at': result[7]
+    }
+
   def DispensaryExists(self, username):
     result = self.DBSelect("""SELECT * FROM Dispensary WHERE ID=(SELECT DispensaryID FROM DispensaryUser WHERE Username='{username}')""".format(username=username))
     return len(result) == 1
 
   # Users
-
   def CreatePatient(self, dispensaryName, contactName, phone, address, timezone):
     phone = int(phone)
     self.DBInsert("""INSERT INTO Patient VALUES (DEFAULT, (SELECT ID FROM Dispensary WHERE Name='{dispensaryName}'), '{contactName}', '{phone}', '{address}', '{timezone}', {active}, {optedIn})""".format(contactName=contactName, phone=phone, dispensaryName=dispensaryName, address=address, timezone=timezone, active=False, optedIn=False))
@@ -126,7 +136,6 @@ class Access(object):
     return len(result) == 1
 
   # Interactions
-
   def GetLastInteraction(self, user):
     patientID = user['id']
     result = self.DBSelect("""SELECT * FROM Interaction WHERE PatientID={patientID}""".format(patientID=patientID))
@@ -139,6 +148,10 @@ class Access(object):
       'state': result[2],
       'created_at': result[3]
     }
+
+  def DeleteLastInteraction(self, user):
+    patientID = user['id']
+    result = self.DBSelect("""DELETE FROM Interaction WHERE PatientID={patientID}""".format(patientID=patientID))
 
   def CreateNewInteraction(self, patientID, state):
     state = json.dumps(state)

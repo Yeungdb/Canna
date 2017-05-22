@@ -12,5 +12,5 @@ class Enquiries(Interaction):
       'greetings': self.greeting
     })
 
-  def greeting(self):
+  def greeting(self, value):
     self.respondAndUpdate('greeting')

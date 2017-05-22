@@ -50,6 +50,17 @@ def send_message(number, messages):
   else:
     _create_message(messages)
 
+def interpolate_message(messages, variables={}):
+  def _interp_string(message):
+    return message.format(**variables)
+
+  if isinstance(messages, list):
+    return_value = map(lambda message: _interp_string(message), messages)
+  else:
+    return_value = _interp_string(messages)
+
+  return return_value
+
 # Number Helpers
 def sanitizize_num(num, to_int=True):
   sanitized_num = re.sub('[^0-9]', '', num)
