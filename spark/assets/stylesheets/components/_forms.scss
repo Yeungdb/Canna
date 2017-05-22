@@ -44,24 +44,25 @@
   line-height: 21px;
 }
 
-/* Temp styling */
+.flash-messages {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
 
-form {
-
-  > div {
-    margin-bottom: 10px;
+  li {
+    padding: 10px;
+    border-radius: 2px;
   }
 
-  > div label {
-    width: 140px;
-    display: inline-block;
-    vertical-align: middle;
+  .error {
+    background: #ffeded;
   }
 
-  > div input,
-  > div textarea {
-    width: 360px;
-    display: inline-block;
-    vertical-align: middle;
+  .success {
+    background: #daffef;
+  }
+
+  .info {
+    background: #ebfdfb
   }
 }

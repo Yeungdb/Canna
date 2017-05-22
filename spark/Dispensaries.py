@@ -30,7 +30,8 @@ def DispensaryAuth():
   session['username'] = requestData['username']
 
   if requestData['username'] == '' or requestData['password'] == '':
-    return redirect(url_for('Login'))
+    flash('Could not log in', 'error')
+    return redirect(url_for('DispensaryLogin'))
 
   db.Authenticate(requestData['username'], requestData['password'])
   if db.isLoggedIn:
