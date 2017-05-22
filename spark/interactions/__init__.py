@@ -11,9 +11,18 @@ AcceptedInteractions = {}
 
 class Interaction(object):
 
-  def respond(self, subject):
+  last_interaction = False
+
+  def respondAndUpdate(self, subject, next=None):
     message = responses[self.identifier][subject]
     h.send_message(self.user['phone'], message)
+
+    if self.last_interaction:
+      if next:
+        db.UpdateExistingInteraction(self.last_interaction['id'], next)
+      # TODO else delete last interaction
+    elif next:
+      db.CreateNewInteraction(self.user['id'], next)
 
   @classmethod
   def confidentEntities(self, entities, confidence=0.5):
@@ -26,22 +35,14 @@ class Interaction(object):
     return good_entities
 
   @classmethod
-  def lastInteractionMatch(self, entity, value):
+  def lastInteractionMatch(self, entity):
     interaction = db.GetLastInteraction(self.user)
 
     if not interaction:
       return False
 
     state = interaction['state']
-    if state['next_entity'] == entity and state['next_value'] == value:
-      return interaction['id']
+    if state['entity'] == entity:
+      return interaction
     else:
       return False
-
-  @classmethod
-  def createNew(self, results):
-    print("create new")
-
-  @classmethod
-  def updateExisting(self, last_id, results):
-    print("update existing")

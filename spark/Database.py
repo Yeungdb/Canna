@@ -121,7 +121,10 @@ class Access(object):
       'created_at': result[3]
     }
 
-  def CreateNewInteraction(self, user):
-    patientID = user['id']
-    state = '{ "customer": "Lily Bush" }'
+  def CreateNewInteraction(self, patientID, state):
+    state = json.dumps(state)
     self.DBInsert("""INSERT INTO Interaction VALUES (DEFAULT, '{patientID}', '{state}')""".format(patientID=patientID, state=state))
+
+  def UpdateExistingInteraction(self, interactionID, state):
+    state = json.dumps(state)
+    self.DBInsert("""UPDATE Interaction SET State = '{state}' WHERE ID={interactionID}""".format(state=state, interactionID=interactionID))

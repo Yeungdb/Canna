@@ -30,6 +30,7 @@ def MessageReceived():
 
   if not user:
     h.send_message(from_number, responses["system"]["not_a_patient"])
+  # TODO elif has user but user is not opted in
   else:
     Interaction.user = user
     actionable = interact(from_message)
@@ -46,17 +47,20 @@ def interact(message):
 
   actionable = False
 
-  for key, value in entities.iteritems():
-    if key in AcceptedInteractions:
+  for entity, value in entities.iteritems():
+    last_interaction = Interaction.lastInteractionMatch(entity)
+    if last_interaction:
       actionable = True
-      last_match = Interaction.lastInteractionMatch(key, value)
-      action_result = AcceptedInteractions[key]['action']()
-
-      if not last_match == False:
-        Interaction.updateExisting(last_match['id'], action_result)
-      else:
-        Interaction.createNew(action_result)
-
+      next_interaction = last_interaction['state']['values'][value[0]]
+      Interaction.last_interaction = last_interaction
+      AcceptedInteractions[next_interaction]()
       break
+
+  if not actionable:
+    for entity, value in entities.iteritems():
+      if entity in AcceptedInteractions:
+        actionable = True
+        AcceptedInteractions[entity](value)
+        break
 
   return actionable

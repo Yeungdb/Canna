@@ -11,8 +11,8 @@
       "Hey {name}, this is Spark 👋 ⚡\n\nI'm a bot that helps you order from {dispensary} directly through text messages",
       "I'd hate to spam you, so before we get started can you confirm you'd like to hear from me?"
     ],
-    "opt_out_response": "Alright, this is goodbye then 😢\n\nYou can opt back in anytime by sending me a message. Adios!",
     "opt_in_response": "Right on! Would you like me to explain a little more about how I work?",
+    "opt_out_response": "Alright, this is goodbye then 😢\n\nYou can opt back in anytime by sending me a message. Adios!",
     "bot_overview": "Think of me as your personal cannabis bot. 🤖\n\nI'm connected directly to {dispensary}, and you can browse and buy their products by messaging me.\n\nI accept Interac e-transfer for payment, then your order gets mailed right to your door! 📬 👌\n\nI know what you're thinking, and the answer is yes: This is real. And awesome.\n\nReady to get started?",
     "opt_out_overview": "Yeah, I never read the instructions either.\n\nIn that case, I'm around anytime. Message me when you need weed!\n\nOh and I almost forgot, for more things I can help you with, type 'help'.\n\nSay 'stop' to opt out of my messages (but know you'll hurt my robot feelings 💔)"
   },

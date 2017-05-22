@@ -9,11 +9,8 @@ class Enquiries(Interaction):
 
   def __init__(self):
     AcceptedInteractions.update({
-      "greetings": {
-        "next": None,
-        "action": self.greeting
-      }
+      'greetings': self.greeting
     })
 
   def greeting(self):
-    self.respond('greeting')
+    self.respondAndUpdate('greeting')
