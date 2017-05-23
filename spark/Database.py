@@ -149,9 +149,8 @@ class Access(object):
       'created_at': result[3]
     }
 
-  def DeleteLastInteraction(self, user):
-    patientID = user['id']
-    result = self.DBSelect("""DELETE FROM Interaction WHERE PatientID={patientID}""".format(patientID=patientID))
+  def DeleteLastInteraction(self, id):
+    self.DBInsert("""DELETE FROM Interaction WHERE ID={id}""".format(id=id))
 
   def CreateNewInteraction(self, patientID, state):
     state = json.dumps(state)

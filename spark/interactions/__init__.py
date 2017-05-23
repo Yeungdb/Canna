@@ -55,6 +55,7 @@ class Interaction(object):
       return False
 
     state = interaction['state']
+
     if state['entity'] == entity:
       return interaction
     else:

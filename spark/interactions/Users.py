@@ -26,7 +26,9 @@ class Onboarding(Interaction):
     })
 
   def bot_overview(self):
-    self.respondAndUpdate('bot_overview')
+    self.respondAndUpdate('bot_overview', messageVariables={
+      'dispensary': self.dispensary['name']
+    })
 
   def opt_out_overview(self):
     self.respondAndUpdate('opt_out_overview')

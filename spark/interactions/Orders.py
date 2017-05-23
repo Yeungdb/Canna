@@ -9,8 +9,24 @@ class Enquiries(Interaction):
 
   def __init__(self):
     AcceptedInteractions.update({
-      'greetings': self.greeting
+      'request': self.request,
+      'greetings': self.greeting,
+      'goodbye': self.goodbye
     })
 
-  def greeting(self, value):
-    self.respondAndUpdate('greeting')
+  def greeting(self, *params):
+    self.respondAndUpdate('greeting', messageVariables={
+      'name': self.user['name'] if self.user['name'] != "" else "there",
+    }, nextAction={
+      'entity': 'polar_response',
+      'values': {
+        'yes': 'request',
+        'no': 'goodbye'
+      }
+    })
+
+  def request(self, *params):
+    self.respondAndUpdate('request')
+
+  def goodbye(self, *params):
+    self.respondAndUpdate('goodbye')

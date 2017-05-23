@@ -1,24 +1,25 @@
 {
   "system": {
-    "cannot_understand": "I'm not sure what you mean ¯\\_(ツ)_/¯",
+    "cannot_understand": "Hm. Not sure what you meant there. I'm a new bot and still learning ¯\\_(ツ)_/¯\n\nThis misunderstanding has been logged for further review.",
     "not_a_patient": [
       "Thanks for texting Spark. Your number doesn't seem to be registered with us 🤔",
       "To continue using Spark you'll need to reach out to your dispensary. Learn more here: tryspark.co"
-    ],
-    "not_opted_in": "Sorry, you've opted out of Spark."
+    ]
   },
   "onboarding": {
     "initial_greeting": [
       "Hey {name}, this is Spark 👋 ⚡\n\nI'm a bot that helps you order from {dispensary} directly through text messages.",
       "Would you like me to explain a little more about how I work?"
     ],
-    "bot_overview": "Think of me as your personal cannabis bot. 🤖\n\nI'm connected directly to {dispensary}, and you can browse and buy their products by messaging me. I accept Interac e-transfer for payment, then your order gets mailed right to your door! 📬 👌\n\nI know what you're thinking, and the answer is yes: This is real. And awesome.\n\nTo get started say something like \"I'd like to place an order\".",
+    "bot_overview": "Think of me as your personal cannabis bot. 🤖\n\nI'm connected directly to {dispensary}, and you can browse and buy their products by messaging me. I accept Interac e-transfer for payment, then your order gets mailed right to your door! 📬 👌\n\nTo get started say something like \"I'd like to place an order\" or \"I need some weed\".",
     "opt_out_overview": [
       "Yeah, I never read the instructions either.\n\nIn that case, I'm around anytime. Message me when you need weed!",
       "Oh and I almost forgot, for more things I can help you with, type 'help'.\n\nSay 'stop' to opt out of my messages (but know you'll hurt my robot feelings 💔)."
     ]
   },
   "order_enquiry": {
-    "greeting": "Hey there! I'm not quite ready to place orders."
+    "greeting": "Hey {name}! Looking to place an order?",
+    "request": "Unfortunately I'm not quite ready to place orders.",
+    "goodbye": "Sounds good. Let me know if you need anything. 👋"
   }
 }
